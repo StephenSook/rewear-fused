@@ -6,7 +6,7 @@
 
 **Safe to wear, able to be remade.**
 
-REWEAR-FUSED closes the textile-to-textile recycling loop on children's stretch apparel. It co-designs two matched molecules at once: a new, enzymatically-cleavable elastane fiber, and the de novo enzyme designed from scratch to cleave it. Around that loop sits a deployable Digital Recyclability Passport that proves each garment is safe and routes it to the right end-of-life.
+REWEAR-FUSED closes the textile-to-textile recycling loop on children's stretch apparel. It co-designs two matched molecules at once: a new, enzymatically-cleavable elastane fiber, and the de novo enzyme designed to cleave it. Around that loop sits a deployable Digital Recyclability Passport that proves each garment is safe and routes it to the right end-of-life.
 
 Built for the Cox Enterprises **"Play With Purpose"** Sustainability Hackathon, Carter's **Making & Remaking** track.
 
@@ -36,7 +36,7 @@ Elastane is in about **80%** of all clothing, and as little as **1%** of it make
 
 ## REWEAR-FUSED in one loop
 
-> A worn onesie enters. The passport proves it is safe and routes it. We design a new cleavable elastane, design a matched enzyme against its exact bond, the enzyme cleaves it to recoverable monomers, and it re-spins into a new onesie. Neither the molecule nor the enzyme existed 72 hours ago.
+> A worn onesie enters. The passport proves it is safe and routes it. We design a new cleavable elastane, design a matched enzyme against its exact bond, the enzyme cleaves it to recoverable monomers, and it re-spins into a new onesie. Neither the molecule nor the enzyme has any prior art.
 
 <p align="center">
   <img src="docs/gallery/04-loop-cleavage.png" alt="The closed-loop view at the carbamate cleavage moment: a dense particle storm where the amber fiber and the teal enzyme fuse to white." width="760"><br>
@@ -46,7 +46,7 @@ Elastane is in about **80%** of all clothing, and as little as **1%** of it make
 ## What it does
 
 - **Engine A, Cleavable Elastane Design.** Constraint-guided virtual screening of polyurethane-urea chemical space. Aliphatic isocyanates only (so nothing carcinogenic comes off near a baby), the cleavable bond in the amorphous soft segment (so the stretch survives), 25 to 35 percent hard segment. It emits the carbamate microenvironment as the enzyme's substrate target.
-- **Engine B, De Novo Carbamate Hydrolase.** An enzyme designed from scratch (RFdiffusion to LigandMPNN to Boltz-2 to PLACER to FoldSeek) to cleave the exact bond in Engine A's fiber, with an engineered near-neutral Ser-His-Asp triad so it does not damage companion cotton. Anchored on, not copied from, the published UMG-SP2 urethanase transition-state geometry.
+- **Engine B, De Novo Carbamate Hydrolase.** An enzyme designed de novo (RFdiffusion to LigandMPNN to Boltz-2 to PLACER to FoldSeek) to cleave the exact bond in Engine A's fiber, with an engineered near-neutral Ser-His-Asp triad so it does not damage companion cotton. Anchored on, not copied from, the published UMG-SP2 urethanase transition-state geometry.
 - **Engine C, Digital Recyclability Passport.** A live compliance classifier that routes each garment **clear / lab-test / divert** against real US and EU regulation (CPSIA, California PFAS law, REACH, OEKO-TEX, EU ESPR) and emits a scannable GS1 Digital Link / EU Digital Product Passport. The part Carter's could deploy in Year 1.
 
 ## Architecture
@@ -95,7 +95,7 @@ We would rather you check than take our word. The full tiering is the in-app [`/
 | Training + reference data | **REAL DATA** | - | 631 real CPSC recalls (saferproducts.gov), wired today; EU Safety Gate, Peaslee PFAS, OEKO-TEX are the roadmap |
 | Engine A, the fiber | **IN-SILICO** | 3 | constraint-guided screening; predicted properties with benchmark-referenced confidence |
 | Engine B, the enzyme | **IN-SILICO** | 2 | de novo design; PLACER preorganization + FoldSeek novelty on the Lauko thresholds |
-| Wet-lab validation | **FORWARD** | - | not done in 72 hours; the Cox Cleantech Residency ask |
+| Wet-lab validation | **FORWARD** | - | not yet done in a lab; the Cox Cleantech Residency ask |
 
 ## The five views
 

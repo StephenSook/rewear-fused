@@ -255,7 +255,7 @@ export function StoryExperience() {
           }
         >
           <p className="max-w-3xl font-display text-4xl leading-tight sm:text-6xl">
-            Neither the molecule nor the enzyme existed 72 hours ago.
+            Neither the molecule nor the enzyme has any prior art.
           </p>
           <div className="mt-10">
             <BeveledButton href="/loop" accent="bio">

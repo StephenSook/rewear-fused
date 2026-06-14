@@ -202,7 +202,7 @@ export function LoopExperience() {
               the enzyme that closes its loop.
             </p>
             <p className="mt-3 font-display text-2xl text-fg-muted sm:text-4xl">
-              Neither existed 72 hours ago.
+              Neither has any prior art.
             </p>
 
             <div className="mt-12 grid gap-4 sm:grid-cols-3">

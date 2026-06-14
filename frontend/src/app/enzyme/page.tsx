@@ -27,7 +27,7 @@ export default function EnzymePage() {
             De Novo Carbamate Hydrolase
           </h1>
           <p className="mt-4 max-w-2xl text-fg-muted">
-            An enzyme designed from scratch to cleave the carbamate bond in the
+            An enzyme designed de novo to cleave the carbamate bond in the
             matched fiber. Anchored on the published UMG-SP2 transition-state
             geometry, re-engineered to a near-neutral Ser-His-Asp triad.
           </p>

@@ -70,7 +70,7 @@ const ITEMS: Item[] = [
     name: "Wet-lab validation",
     tier: "FORWARD",
     detail:
-      "Not done, by definition of a 72-hour build. The ask: express the top enzyme designs and spin a fiber sample, prove activity on a carbamate surrogate, file a provisional, and pilot one Carter's SKU. That is what the residency funds.",
+      "Not done: this is an in-silico design (TRL 2-3), not an expressed protein or spun fiber. The ask: express the top enzyme designs and spin a fiber sample, prove activity on a carbamate surrogate, file a provisional, and pilot one Carter's SKU. That is what the residency funds.",
   },
 ];
 
