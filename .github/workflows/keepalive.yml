@@ -1,0 +1,25 @@
+name: Keepalive
+
+# Warms the free-tier Engine C endpoint so the judge link is never cold-dead.
+# Skips quietly until KEEPALIVE_TARGET_URL is set (June 14), then fails loudly
+# if the endpoint is unhealthy.
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Engine C health
+        env:
+          URL: ${{ secrets.KEEPALIVE_TARGET_URL }}
+        run: |
+          if [ -z "$URL" ]; then
+            echo "KEEPALIVE_TARGET_URL not set yet, skipping"
+            exit 0
+          fi
+          code=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+          echo "health: $code"
+          test "$code" = "200"

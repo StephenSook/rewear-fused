@@ -1,0 +1,61 @@
+import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { MonoLabel } from "@/components/instrument";
+import { EnzymeStage } from "@/components/enzyme-stage";
+import { EnzymeDetail } from "@/components/enzyme-detail";
+import { Reveal } from "@/components/reveal";
+import { REFERENCE_PDB } from "@/lib/data";
+
+export const metadata = {
+  title: "De Novo Carbamate Hydrolase · REWEAR-FUSED",
+};
+
+export default function EnzymePage() {
+  return (
+    <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-16">
+      <Link
+        href="/passport"
+        className="inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-fg-muted transition-colors hover:text-fg"
+      >
+        <ArrowLeft className="h-4 w-4" /> Passport
+      </Link>
+
+      <Reveal>
+        <header className="mt-6 mb-8">
+          <MonoLabel>Engine B · de novo design · the grand-prize moment</MonoLabel>
+          <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">
+            De Novo Carbamate Hydrolase
+          </h1>
+          <p className="mt-4 max-w-2xl text-fg-muted">
+            An enzyme designed from scratch to cleave the carbamate bond in the
+            matched fiber. Anchored on the published UMG-SP2 transition-state
+            geometry, re-engineered to a near-neutral Ser-His-Asp triad.
+          </p>
+        </header>
+      </Reveal>
+
+      <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+        <Reveal delay={0.05}>
+          <EnzymeStage url={REFERENCE_PDB} activeSite={[105, 187, 224]} chain="A" />
+          <p className="mt-3 font-mono text-[0.65rem] text-fg-muted">
+            Reference serine-hydrolase scaffold (CALB, PDB 1TCA); the Ser-His-Asp
+            catalytic triad (Ser105 / His224 / Asp187) is highlighted in green. The
+            designed structure replaces it at the artifact-freeze gate. Drag to rotate.
+          </p>
+        </Reveal>
+
+        <EnzymeDetail />
+      </div>
+
+      <div className="mt-12 flex justify-end">
+        <Link
+          href="/passport"
+          className="group inline-flex items-center gap-3 font-mono text-xs tracking-widest uppercase text-accent-bio"
+        >
+          Back to the passport
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+        </Link>
+      </div>
+    </main>
+  );
+}

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "carters-bodysuit-cotton",
+    "name": "Carter's 5-Pack Cotton Bodysuit, 0-3M",
+    "archetype": "bodysuit",
+    "imageUrl": "/archetypes/bodysuit.jpg",
+    "fiberComposition": [{ "fiber": "Cotton", "percent": 100, "source": "category-typical" }],
+    "simulatedChemicalHistory": "Better Cotton sourced, OEKO-TEX context",
+    "inSilico": true
+  },
+  {
+    "id": "carters-legging-blend",
+    "name": "Carter's Cotton-Blend Legging, 12M",
+    "archetype": "legging",
+    "imageUrl": "/archetypes/legging.jpg",
+    "fiberComposition": [
+      { "fiber": "Cotton", "percent": 95, "source": "category-typical" },
+      { "fiber": "Elastane", "percent": 5, "source": "category-typical" }
+    ],
+    "simulatedChemicalHistory": "Stretch waistband, elastane present",
+    "inSilico": true
+  },
+  {
+    "id": "carters-rashguard-swim",
+    "name": "Carter's UPF Rashguard, 24M",
+    "archetype": "swim",
+    "imageUrl": "/archetypes/swim.jpg",
+    "fiberComposition": [
+      { "fiber": "Recycled Polyester", "percent": 82, "source": "category-typical" },
+      { "fiber": "Elastane", "percent": 18, "source": "category-typical" }
+    ],
+    "simulatedChemicalHistory": "Water-repellent finish, PFAS screen relevant",
+    "inSilico": true
+  }
+]

@@ -1,0 +1,66 @@
+# macOS
+.DS_Store
+.AppleDouble
+._*
+.icloud_test
+
+# Playwright MCP scratch (screenshots, console logs from local verify runs)
+.playwright-mcp/
+fiber-bloom-check.jpeg
+
+# Secrets (never commit)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+id_rsa
+service-account*.json
+.npmrc
+.pypirc
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+
+# Node / Next.js (frontend)
+node_modules/
+.next/
+out/
+dist/
+build/
+.turbo/
+*.tsbuildinfo
+.vercel/
+npm-debug.log*
+yarn-error.log
+*.log
+
+# Python (backend + engine-c)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+.ipynb_checkpoints/
+
+# Large model weights (live on the GPU host, never committed)
+weights/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.npz
+
+# Raw downloaded public datasets (regenerable via engine-c/ingest scripts; large)
+data/datasets/
+
+# NOTE: data/artifacts/ IS tracked. Those are the real, signed pipeline outputs
+# (the demo evidence) and must stay in version control.

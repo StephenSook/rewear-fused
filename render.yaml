@@ -1,0 +1,15 @@
+# Render Blueprint for the Engine C live endpoint.
+# Create the service from the Render dashboard (New > Blueprint).
+services:
+  - type: web
+    name: rewear-engine-c
+    runtime: python
+    rootDir: engine-c
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.5"

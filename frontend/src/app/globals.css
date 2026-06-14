@@ -1,0 +1,481 @@
+@import "tailwindcss";
+
+/*
+  REWEAR-FUSED design tokens. Molecular laboratory instrument meets editorial
+  science journal. Two-accent system: bio-green = enzyme, amber = fiber.
+  Fonts are wired to next/font CSS vars set in layout.tsx (interim Google
+  stand-ins for Editorial New / General Sans until self-hosted).
+*/
+@theme {
+  --color-bg: oklch(0.13 0.01 240);
+  --color-bg-elevated: oklch(0.17 0.01 240);
+  --color-fg: oklch(0.96 0.005 240);
+  --color-fg-muted: oklch(0.65 0.01 240);
+  --color-accent-bio: oklch(0.83 0.18 175);
+  --color-accent-fiber: oklch(0.74 0.17 45);
+  --color-rule: oklch(0.3 0.005 240 / 0.55);
+  --color-pass: oklch(0.8 0.16 150);
+  --color-warn: oklch(0.82 0.15 75);
+  --color-fail: oklch(0.65 0.2 25);
+
+  --font-display: var(--font-display-src), Georgia, serif;
+  --font-body: var(--font-body-src), system-ui, sans-serif;
+  --font-mono: var(--font-mono-src), monospace;
+
+  --shadow-bloom: 0 0 80px -8px oklch(0.83 0.18 175 / 0.45);
+}
+
+html {
+  background: var(--color-bg);
+  color-scheme: dark;
+}
+
+body {
+  background:
+    radial-gradient(120% 80% at 50% -10%, oklch(0.18 0.02 200 / 0.5), transparent 60%),
+    var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100dvh;
+}
+
+::selection {
+  background: var(--color-accent-bio);
+  color: var(--color-bg);
+}
+
+/* Keyboard focus ring on every interactive element, in the bio accent. Pointer
+   focus stays clean via :focus-visible. */
+:focus-visible {
+  outline: 2px solid var(--color-accent-bio);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* Monospace micro-label: section eyebrows, residue tags, citation chips. */
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+  /* hairline shadow so labels stay legible over the live particle scene */
+  text-shadow: 0 1px 3px var(--color-bg);
+}
+
+/* Faint film grain over the whole page for instrument atmosphere. */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  z-index: 50;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Scan reticle around the passport QR. Draws the eye to the on-stage scan
+   without ever covering the code modules. Freezes static under reduced-motion. */
+.qr-scan-pulse {
+  animation: qr-pulse 2.4s ease-in-out infinite;
+}
+@keyframes qr-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 0.9;
+  }
+}
+
+/* Route transition veil: the new chapter emerges from the background. */
+.page-wipe {
+  animation: page-reveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes page-reveal {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Instrument box: the live chrome. Corner ticks extend into locking brackets on
+   hover, an accent spotlight tracks the cursor (behind the text, via isolate +
+   negative z, so the fine mono readout stays crisp), a reticle line sweeps the
+   panel, and the frame blooms. Cursor position arrives as --mx / --my from the
+   tilt hook. Two-accent system carried through --ib-accent.
+   ------------------------------------------------------------------------- */
+.instrument-box {
+  isolation: isolate;
+  --ib-accent: var(--color-fg-muted);
+  --ib-spot: color-mix(in oklch, var(--color-fg) 8%, transparent);
+  --ib-bloom: color-mix(in oklch, var(--color-fg-muted) 28%, transparent);
+  transition:
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+.box-bio {
+  --ib-accent: var(--color-accent-bio);
+  --ib-spot: color-mix(in oklch, var(--color-accent-bio) 18%, transparent);
+  --ib-bloom: color-mix(in oklch, var(--color-accent-bio) 45%, transparent);
+}
+.box-fiber {
+  --ib-accent: var(--color-accent-fiber);
+  --ib-spot: color-mix(in oklch, var(--color-accent-fiber) 18%, transparent);
+  --ib-bloom: color-mix(in oklch, var(--color-accent-fiber) 45%, transparent);
+}
+.box-none {
+  --ib-accent: var(--color-fg-muted);
+  --ib-spot: color-mix(in oklch, var(--color-fg) 8%, transparent);
+  --ib-bloom: color-mix(in oklch, var(--color-fg-muted) 26%, transparent);
+}
+
+.instrument-box:hover {
+  border-color: color-mix(in oklch, var(--ib-accent) 50%, var(--color-rule));
+  box-shadow: 0 0 55px -14px var(--ib-bloom);
+}
+
+/* cursor-tracking spotlight, painted behind the text */
+.instrument-box-spot {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    380px circle at var(--mx, 50%) var(--my, 50%),
+    var(--ib-spot),
+    transparent 60%
+  );
+}
+.instrument-box:hover .instrument-box-spot {
+  opacity: 1;
+}
+
+/* reticle line that sweeps top-to-bottom while hovered */
+.ib-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, var(--ib-accent), transparent);
+}
+.instrument-box:hover .ib-scan {
+  animation: ib-sweep 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes ib-sweep {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.6;
+  }
+  88% {
+    opacity: 0.6;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* corner ticks that grow into locking brackets on hover, snap in on press */
+/* Each corner is an 18px box; its two bars (::before horizontal, ::after
+   vertical) ink out from the vertex on hover, the vertical staggered behind the
+   horizontal so the bracket draws itself on (the verified stroke draw-on, done
+   pure-CSS via scale). At rest the bars sit at 45% = a small tick; on press they
+   snap back to a partial lock. */
+.ib-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  opacity: 0.9;
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease,
+    filter 0.3s ease;
+}
+.instrument-box:hover .ib-corner {
+  opacity: 1;
+  /* the inked bracket glows in the accent once locked: the DrawSVG look (a
+     glowing drawn stroke), the real upgrade over a flat bar */
+  filter: drop-shadow(0 0 4px var(--ib-accent));
+}
+.ib-corner::before,
+.ib-corner::after {
+  content: "";
+  position: absolute;
+  background: var(--ib-accent);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ib-corner::before {
+  height: 1.5px;
+  left: 0;
+  right: 0;
+}
+.ib-corner::after {
+  width: 1.5px;
+  top: 0;
+  bottom: 0;
+}
+.instrument-box:hover .ib-corner::before {
+  transform: scaleX(1);
+}
+.instrument-box:hover .ib-corner::after {
+  transform: scaleY(1);
+  transition-delay: 0.06s;
+}
+.instrument-box:active .ib-corner::before {
+  transform: scaleX(0.7);
+}
+.instrument-box:active .ib-corner::after {
+  transform: scaleY(0.7);
+}
+.ib-tl {
+  top: -1px;
+  left: -1px;
+}
+.ib-tl::before {
+  top: 0;
+  transform: scaleX(0.45);
+  transform-origin: left;
+}
+.ib-tl::after {
+  left: 0;
+  transform: scaleY(0.45);
+  transform-origin: top;
+}
+.ib-tr {
+  top: -1px;
+  right: -1px;
+}
+.ib-tr::before {
+  top: 0;
+  transform: scaleX(0.45);
+  transform-origin: right;
+}
+.ib-tr::after {
+  right: 0;
+  transform: scaleY(0.45);
+  transform-origin: top;
+}
+.ib-bl {
+  bottom: -1px;
+  left: -1px;
+}
+.ib-bl::before {
+  bottom: 0;
+  transform: scaleX(0.45);
+  transform-origin: left;
+}
+.ib-bl::after {
+  left: 0;
+  transform: scaleY(0.45);
+  transform-origin: bottom;
+}
+.ib-br {
+  bottom: -1px;
+  right: -1px;
+}
+.ib-br::before {
+  bottom: 0;
+  transform: scaleX(0.45);
+  transform-origin: right;
+}
+.ib-br::after {
+  right: 0;
+  transform: scaleY(0.45);
+  transform-origin: bottom;
+}
+
+/* Hero-only: a single accent beam runs the frame perpetually (one box, the
+   enzyme Mol* centerpiece), masked to a 1.5px border ring. The canvas box has no
+   tilt, so the beam is what gives the grand-prize moment its living presence. */
+@property --ib-beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.ib-beam {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--ib-beam-angle),
+    transparent 0 62%,
+    color-mix(in oklch, var(--ib-accent) 35%, transparent) 74%,
+    var(--ib-accent) 90%,
+    color-mix(in oklch, var(--ib-accent) 35%, transparent) 96%,
+    transparent 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  /* the glow bleed is what makes a 2px ring read as a running current */
+  filter: drop-shadow(0 0 5px var(--ib-accent));
+  animation: ib-beam-run 4.5s linear infinite;
+}
+@keyframes ib-beam-run {
+  to {
+    --ib-beam-angle: 360deg;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Instrument CTA button: magnetic (via the tilt hook), a cursor spotlight, a
+   charge stripe that sweeps across on hover, an accent bloom, a sliding arrow,
+   and a downloading data cascade for the .pdb button. Self-contained so it
+   never touches the verified box chrome above.
+   ------------------------------------------------------------------------- */
+.instrument-btn {
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--color-fg-muted);
+  border-color: var(--color-rule);
+  --ib-accent: var(--color-fg-muted);
+  --ib-spot: color-mix(in oklch, var(--color-fg) 8%, transparent);
+  --ib-bloom: color-mix(in oklch, var(--color-fg-muted) 26%, transparent);
+  transition:
+    color 0.3s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+.btn-bio {
+  --ib-accent: var(--color-accent-bio);
+  --ib-spot: color-mix(in oklch, var(--color-accent-bio) 18%, transparent);
+  --ib-bloom: color-mix(in oklch, var(--color-accent-bio) 45%, transparent);
+}
+.btn-fiber {
+  --ib-accent: var(--color-accent-fiber);
+  --ib-spot: color-mix(in oklch, var(--color-accent-fiber) 18%, transparent);
+  --ib-bloom: color-mix(in oklch, var(--color-accent-fiber) 45%, transparent);
+}
+.btn-primary {
+  color: var(--ib-accent);
+  border-color: color-mix(in oklch, var(--ib-accent) 45%, var(--color-rule));
+}
+.instrument-btn:hover {
+  color: var(--ib-accent);
+  border-color: color-mix(in oklch, var(--ib-accent) 55%, var(--color-rule));
+  box-shadow: 0 0 30px -10px var(--ib-bloom);
+}
+
+/* cursor spotlight, behind the label */
+.ibtn-spot {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    180px circle at var(--mx, 50%) var(--my, 50%),
+    var(--ib-spot),
+    transparent 65%
+  );
+}
+.instrument-btn:hover .ibtn-spot {
+  opacity: 1;
+}
+
+/* charge stripe sweeps across once on hover-in */
+.ibtn-sweep {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.ibtn-sweep::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -50%;
+  width: 45%;
+  transform: skewX(-18deg);
+  opacity: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklch, var(--ib-accent) 22%, transparent),
+    transparent
+  );
+}
+.instrument-btn:hover .ibtn-sweep::before {
+  animation: ibtn-charge 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes ibtn-charge {
+  0% {
+    left: -50%;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    left: 115%;
+    opacity: 0;
+  }
+}
+
+/* download: thin accent lines cascade downward (data transfer) on hover */
+.ibtn-stream {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 6px,
+    color-mix(in oklch, var(--ib-accent) 16%, transparent) 6px 7px
+  );
+}
+.instrument-btn:hover .ibtn-stream {
+  opacity: 1;
+  animation: ibtn-stream-run 0.9s linear infinite;
+}
+@keyframes ibtn-stream-run {
+  to {
+    background-position: 0 7px;
+  }
+}
+
+/* trailing arrow slides on hover */
+.ibtn-arrow {
+  transition: transform 0.3s ease;
+}
+.instrument-btn:hover .ibtn-arrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

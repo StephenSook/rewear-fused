@@ -1,0 +1,9 @@
+[
+  { "id": "CPSIA_LEAD_SUBSTRATE", "name": "CPSIA lead (substrate)", "jurisdiction": "US-Federal", "limit": "100 ppm", "citation": "CPSIA Section 101; 16 CFR 1500", "effectiveDate": "2011-08-14" },
+  { "id": "CPSIA_PHTHALATES", "name": "CPSIA phthalates (8, accessible parts)", "jurisdiction": "US-Federal", "limit": "1000 ppm each", "citation": "CPSIA Section 108; 16 CFR 1307", "effectiveDate": "2018-04-25" },
+  { "id": "CPSIA_FLAMMABILITY_SLEEPWEAR", "name": "Children's sleepwear flammability", "jurisdiction": "US-Federal", "limit": "16 CFR 1615/1616", "citation": "16 CFR 1615 and 1616", "effectiveDate": "1996-01-01" },
+  { "id": "CA_AB1817_PFAS", "name": "California AB 1817 PFAS in textiles", "jurisdiction": "US-CA", "limit": "100 ppm total organic fluorine (50 ppm from 2027)", "citation": "California AB 1817 (2022)", "effectiveDate": "2025-01-01" },
+  { "id": "REACH_ENTRY43_AMINES", "name": "REACH aromatic amines (azo)", "jurisdiction": "EU", "limit": "30 mg/kg", "citation": "REACH Annex XVII Entry 43", "effectiveDate": "2003-09-11" },
+  { "id": "OEKO_TEX_CLASS_I_FORMALDEHYDE", "name": "OEKO-TEX Class I formaldehyde (infant)", "jurisdiction": "EU", "limit": "16 mg/kg (not detectable)", "citation": "OEKO-TEX Standard 100 Class I", "effectiveDate": "2025-04-01" },
+  { "id": "EU_ESPR_DPP", "name": "EU Digital Product Passport (textiles)", "jurisdiction": "EU", "limit": "DPP required", "citation": "ESPR Regulation 2024/1781", "effectiveDate": "2027-01-01" }
+]

@@ -1,0 +1,116 @@
+[
+  {
+    "garmentId": "carters-bodysuit-cotton",
+    "decision": "clear",
+    "probability": 0.973,
+    "prAuc": 0.732,
+    "auc": 0.951,
+    "triggeredRegulations": [
+      {
+        "regulationId": "EU_ESPR_DPP",
+        "status": "PASS",
+        "measuredOrPredicted": "deterministic",
+        "detail": "mono/cellulosic composition is fiber-to-fiber recyclable; ESPR Regulation 2024/1781 (DPP required)"
+      },
+      {
+        "regulationId": "REACH_ENTRY43_AMINES",
+        "status": "PASS",
+        "measuredOrPredicted": "deterministic",
+        "detail": "aliphatic isocyanate design: no MDA/TDA pathway; REACH Annex XVII Entry 43 (30 mg/kg)"
+      }
+    ],
+    "compositionDrivers": [
+      {
+        "feature": "elastane %",
+        "weight": 0.0
+      },
+      {
+        "feature": "synthetic %",
+        "weight": 0.0
+      },
+      {
+        "feature": "archetype:bodysuit",
+        "weight": 0.0
+      }
+    ],
+    "inSilico": true
+  },
+  {
+    "garmentId": "carters-legging-blend",
+    "decision": "lab-test",
+    "probability": 0.91,
+    "prAuc": 0.732,
+    "auc": 0.951,
+    "triggeredRegulations": [
+      {
+        "regulationId": "EU_ESPR_DPP",
+        "status": "FLAG",
+        "measuredOrPredicted": "deterministic",
+        "detail": "5% elastane blend not yet fiber-to-fiber recyclable; ESPR Regulation 2024/1781 (DPP required)"
+      },
+      {
+        "regulationId": "REACH_ENTRY43_AMINES",
+        "status": "PASS",
+        "measuredOrPredicted": "deterministic",
+        "detail": "aliphatic isocyanate design: no MDA/TDA pathway; REACH Annex XVII Entry 43 (30 mg/kg)"
+      }
+    ],
+    "compositionDrivers": [
+      {
+        "feature": "elastane %",
+        "weight": 0.05
+      },
+      {
+        "feature": "synthetic %",
+        "weight": 0.0
+      },
+      {
+        "feature": "archetype:legging",
+        "weight": 0.0
+      }
+    ],
+    "inSilico": true
+  },
+  {
+    "garmentId": "carters-rashguard-swim",
+    "decision": "divert",
+    "probability": 0.975,
+    "prAuc": 0.732,
+    "auc": 0.951,
+    "triggeredRegulations": [
+      {
+        "regulationId": "EU_ESPR_DPP",
+        "status": "FAIL",
+        "measuredOrPredicted": "deterministic",
+        "detail": "18% elastane blocks fiber-to-fiber recycling today; ESPR Regulation 2024/1781 (DPP required)"
+      },
+      {
+        "regulationId": "CA_AB1817_PFAS",
+        "status": "FLAG",
+        "measuredOrPredicted": "deterministic",
+        "detail": "water-repellent/UPF finish: total-organic-fluorine screen required under California AB 1817 (2022) (100 ppm total organic fluorine (50 ppm from 2027))"
+      },
+      {
+        "regulationId": "REACH_ENTRY43_AMINES",
+        "status": "PASS",
+        "measuredOrPredicted": "deterministic",
+        "detail": "aliphatic isocyanate design: no MDA/TDA pathway; REACH Annex XVII Entry 43 (30 mg/kg)"
+      }
+    ],
+    "compositionDrivers": [
+      {
+        "feature": "elastane %",
+        "weight": 0.18
+      },
+      {
+        "feature": "synthetic %",
+        "weight": 0.82
+      },
+      {
+        "feature": "archetype:swim",
+        "weight": 1.0
+      }
+    ],
+    "inSilico": true
+  }
+]
