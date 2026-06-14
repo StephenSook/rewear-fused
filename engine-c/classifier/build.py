@@ -206,7 +206,7 @@ def main() -> int:
 
     manifest = {
         "version": "1.0.0",
-        "generatedAt": "2026-06-12T00:00:00Z",
+        "generatedAt": "2026-06-14T20:00:00Z",
         "files": files,
         "modelVersions": {"engineC": MODEL_VERSION},
         "issuer": _DID,

@@ -50,7 +50,7 @@ def build(version: str = "v1.0.0") -> None:
 
     manifest = {
         "version": version.lstrip("v"),
-        "generatedAt": existing.get("generatedAt", "2026-06-12T00:00:00Z"),
+        "generatedAt": existing.get("generatedAt", "2026-06-14T20:00:00Z"),
         "files": files,
         "modelVersions": existing.get("modelVersions", {"engineC": "unknown"}),
     }
