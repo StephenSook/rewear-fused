@@ -44,6 +44,11 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked
 | 4.3 | Playwright golden-path (deployed) | frontend/e2e | Stephen | ⬜ | 4.2 | incognito smoke |
 | 4.4 | Demo video | docs | all | ⬜ | 4.3 | captioned, under 5 min |
 
+## Action items / heads-ups (2026-06-14, Stephen)
+- **Vinh (Engine C), low effort, strengthens the demo moat:** the pitch says "trained on 631 real CPSC recalls" and 631 is real (printed by `ingest/cpsc.py` `summarize()`, noted in `engine-c/README.md`), but it is NOT in the frozen `data/artifacts/v1.0.0/manifest.json`, so a judge auditing the artifact cannot point to it. Add a `recallCount` field to the manifest and surface it on the /judges page so the number is checkable. Safe: the manifest is not self-hashed, so adding a field keeps SHA parity.
+- **Everyone (CI), time-critical before June 16:** GitHub forces Node 24 on **June 16**, our submission day. The workflow's `actions/checkout@v4` + `actions/setup-python@v5` "may not work as expected" after that. Bump them (checkout@v5, setup-python@v6) or set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` in the workflow BEFORE June 16 so CI does not go red on submission day. CI is green today.
+- **FYI (pitch):** the `docs/` pitch scripts were rubric-aligned and honesty-tightened. The enzyme view is narrated as the reference 1TCA scaffold (never "the de novo fold"), since Engine B has not produced a designed structure yet. Drill that narration before June 17; if Engine B lands a real design at the freeze gate, flip one clause.
+
 ## Gates
 
 - **G1 (demo floor)**: VIEW 2 passport renders end-to-end on localhost. A working demo exists.
