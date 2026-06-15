@@ -3,22 +3,52 @@
   "generatedAt": "2026-06-14T20:00:00Z",
   "files": [
     {
-      "path": "garments.json",
-      "sha256": "4968684574f98811df952507c2793695a80d96f53ccea3bfee3dcc97108fcf5e",
-      "bytes": 1252,
-      "producedBy": "input"
-    },
-    {
-      "path": "compliance/regulations.json",
-      "sha256": "b39e1851124f36311c22fb20754ddb6b1d609e27b51c335457f880d0417652c7",
-      "bytes": 1483,
-      "producedBy": "input"
-    },
-    {
       "path": "compliance/classifications.json",
       "sha256": "bb95f4e8894a5611eabe509877cb933330308f02e4b377e6997009ae37871be8",
       "bytes": 3149,
       "producedBy": "engine-c"
+    },
+    {
+      "path": "compliance/regulations.json",
+      "sha256": "64f107ed64e823bb97452447577fe5d354965e0b7c5964ce3e8633d4d619fe5a",
+      "bytes": 1492,
+      "producedBy": "input"
+    },
+    {
+      "path": "enzymes/designs.json",
+      "sha256": "923b9305044f4f3918c7ca9d87f958e9cc6e41f387eaad3a10a7460ad7b5d6bb",
+      "bytes": 1966,
+      "producedBy": "engine-b"
+    },
+    {
+      "path": "fibers/candidates.json",
+      "sha256": "640db27920561529d9235897ac218a16f1fbb216544c649d6299dd075d518250",
+      "bytes": 4949,
+      "producedBy": "engine-a"
+    },
+    {
+      "path": "fibers/screening.json",
+      "sha256": "9bf016dd3274c714cbb9cf6066599973d673f7078a4392bd1cff39583dab4f9a",
+      "bytes": 271,
+      "producedBy": "engine-a"
+    },
+    {
+      "path": "fibers/tradeoffCurve.json",
+      "sha256": "5fb925afc0d9b1c98c9604b112b769645fd69a0b080bfa6ea236a0edee91dd54",
+      "bytes": 667,
+      "producedBy": "engine-a"
+    },
+    {
+      "path": "garments.json",
+      "sha256": "400629cd1a80a0ab06d0d2c3a3656021b6582acba18a135fc6ca831590f8e0ea",
+      "bytes": 1287,
+      "producedBy": "input"
+    },
+    {
+      "path": "pairs/topPairs.json",
+      "sha256": "83c02878635a0e22548e6dfaf45ee51368fbd96eefabe8c1d4a4a8720b48ca40",
+      "bytes": 1279,
+      "producedBy": "engine-a"
     },
     {
       "path": "passports/dpp_carters-bodysuit-cotton.json",
@@ -28,26 +58,44 @@
     },
     {
       "path": "passports/dpp_carters-legging-blend.json",
-      "sha256": "2d9f47f75bcc9e359d83b319dd5ffe4f05554d39c8f0ed94047c60249e08dc09",
-      "bytes": 1745,
+      "sha256": "3a0de090514eddc40539a73eacc39e81abdea755271fbcb5ea39b506bdbc5d6f",
+      "bytes": 1801,
       "producedBy": "engine-c"
     },
     {
       "path": "passports/dpp_carters-rashguard-swim.json",
-      "sha256": "9011b5883e5edea8356cf3d3be05d58c7b69082a2f79b1353868f6c2bdfa9bba",
-      "bytes": 2050,
+      "sha256": "82c6bcbfd7c05c08047096758a4127e5b48ab4e9fa8f53817702a4c695a879cd",
+      "bytes": 2112,
       "producedBy": "engine-c"
+    },
+    {
+      "path": "pdb/enzyme-001.bcif",
+      "sha256": "730f10a7598769463e81d2107b18953c967a826e0a7b53e7dfa11d31528076bd",
+      "bytes": 578829,
+      "producedBy": "engine-b"
+    },
+    {
+      "path": "pdb/enzyme-002.bcif",
+      "sha256": "bc285c0f3fa6b82658065e574f1468f0d6e6649a06c3c1b9db2660451f70fb28",
+      "bytes": 358921,
+      "producedBy": "engine-b"
+    },
+    {
+      "path": "pdb/enzyme-003.bcif",
+      "sha256": "84f9961303b5f4bcb32aa23ce258614ba68e15630f8199eb5aeeb87b0905b4d8",
+      "bytes": 293073,
+      "producedBy": "engine-b"
     }
   ],
   "modelVersions": {
     "engineC": "catboost-text-v1.0"
   },
+  "issuer": "did:key:z6MkuBjwGH6xfC5Fh5C4anbn4WcG8S86AAexvnZQLBV966Uv",
   "recallCount": 631,
   "frozenParity": {
     "kind": "output",
     "path": "compliance/classifications.json",
     "sha256": "bb95f4e8894a5611eabe509877cb933330308f02e4b377e6997009ae37871be8",
     "note": "endpoint verifies the served bundle's SHAs on startup (anchor: classifications.json). Output-parity, not model-binary parity. Tamper-evident vs drift/corruption/wrong-deploy; the per-passport Ed25519 signature is the authenticity anchor."
-  },
-  "issuer": "did:key:z6MkuBjwGH6xfC5Fh5C4anbn4WcG8S86AAexvnZQLBV966Uv"
+  }
 }
