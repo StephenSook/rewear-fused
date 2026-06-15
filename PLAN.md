@@ -38,7 +38,7 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked
 | 3.1 | Engine C data ETL | engine-c/ingest | Stephen→Vinh | ✅ | 0.4 | 631 real CPSC recalls ingested + labeled; → Vinh to extend (Safety Gate, PFAS) |
 | 3.2 | Compliance classifier | engine-c/classifier | Stephen→Vinh | ✅ | 3.1 | deterministic rules + per-label CatBoost, honest CV PR-AUC; tests pass; → Vinh |
 | 3.3 | Passport (VC + GS1 + QR) | engine-c/passport | Stephen→Vinh | ✅ | 3.2 | W3C VC 2.0 + Ed25519 (did:key) + GS1 Digital Link; clear/lab-test/divert; → Vinh |
-| 3.4 | Live endpoint + keepalive | engine-c/api | Stephen→Vinh | 🟡 | 3.2 | C0 IN PROGRESS (Vinh, Jun 14 ~18:05): re-ingesting CPSC corpus → green local build before deploy. /classify + /passport serve real model output; Render deploy + keepalive pending; → Vinh |
+| 3.4 | Live endpoint + keepalive | engine-c/api | Stephen→Vinh | 🟡 | 3.2 | C0 DONE (Vinh, Jun 15): 631 real CPSC recalls re-ingested live, build green on py3.12, 9 tests pass, --strict clean for Engine C (fixed manifest path portability). NEXT: C1 frozen-model parity → Render deploy + keepalive; → Vinh |
 | 4.1 | Wire frontend to real artifacts + live endpoint | frontend, data | Stephen | 🟡 | 3.3 | wired to the signed bundle AND a live `/classify` client with a demo-safe fallback + live/signed-bundle badge; Engine A/B still in-silico |
 | 4.2 | Deploy | infra | all | 🟡 | 1.3 | `vercel.json` ready (framework nextjs, `next build --webpack`, cache headers); public deploy + Render endpoint + secrets |
 | 4.3 | Playwright golden-path (deployed) | frontend/e2e | Stephen | ⬜ | 4.2 | incognito smoke |
