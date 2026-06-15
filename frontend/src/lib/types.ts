@@ -138,4 +138,7 @@ export interface Manifest {
   files: { path: string; sha256: string; bytes: number; producedBy: string }[];
   modelVersions: Record<string, string>;
   issuer?: string;
+  // Engine C frozen-model parity anchor; optional, additive (Vinh, C1). Endpoint
+  // verifies this SHA on startup. kind "output" = served-output parity.
+  frozenParity?: { kind: "output"; path: string; sha256: string; note: string };
 }

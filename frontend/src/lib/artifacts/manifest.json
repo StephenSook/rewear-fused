@@ -3,10 +3,10 @@
   "generatedAt": "2026-06-14T20:00:00Z",
   "files": [
     {
-      "path": "compliance/classifications.json",
-      "sha256": "1bc60947170ea48b540d6476f438f43f14853bc61bb6d27505d0be10758ba0f0",
-      "bytes": 3149,
-      "producedBy": "engine-c"
+      "path": "garments.json",
+      "sha256": "4968684574f98811df952507c2793695a80d96f53ccea3bfee3dcc97108fcf5e",
+      "bytes": 1252,
+      "producedBy": "input"
     },
     {
       "path": "compliance/regulations.json",
@@ -15,14 +15,14 @@
       "producedBy": "input"
     },
     {
-      "path": "garments.json",
-      "sha256": "4968684574f98811df952507c2793695a80d96f53ccea3bfee3dcc97108fcf5e",
-      "bytes": 1252,
-      "producedBy": "input"
+      "path": "compliance/classifications.json",
+      "sha256": "bb95f4e8894a5611eabe509877cb933330308f02e4b377e6997009ae37871be8",
+      "bytes": 3149,
+      "producedBy": "engine-c"
     },
     {
       "path": "passports/dpp_carters-bodysuit-cotton.json",
-      "sha256": "2cbf9dd121e7969bb351dca496b02bd6d6a44750f8186e151570ee4959c3509f",
+      "sha256": "45814699a5efec11d8d25297e16c45a3c47d4e8fc83f47f8d155842167eea97c",
       "bytes": 1758,
       "producedBy": "engine-c"
     },
@@ -41,6 +41,12 @@
   ],
   "modelVersions": {
     "engineC": "catboost-text-v1.0"
+  },
+  "frozenParity": {
+    "kind": "output",
+    "path": "compliance/classifications.json",
+    "sha256": "bb95f4e8894a5611eabe509877cb933330308f02e4b377e6997009ae37871be8",
+    "note": "endpoint verifies the served bundle's SHAs on startup (anchor: classifications.json). Output-parity, not model-binary parity. Tamper-evident vs drift/corruption/wrong-deploy; the per-passport Ed25519 signature is the authenticity anchor."
   },
   "issuer": "did:key:z6MkuBjwGH6xfC5Fh5C4anbn4WcG8S86AAexvnZQLBV966Uv"
 }

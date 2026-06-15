@@ -152,6 +152,9 @@ export interface Manifest {
   files: { path: string; sha256: string; bytes: number; producedBy: string }[];
   modelVersions: Record<string, string>; // e.g. { "engineC": "catboost-v1.0", "rfdiffusion": "3" }
   issuer?: string;                  // did:key of the bundle signer (Engine C)
+  // Frozen-model parity anchor (Engine C): the SHA the live endpoint verifies on
+  // startup and refuses to boot on mismatch. kind "output" = served-output parity.
+  frozenParity?: { kind: "output"; path: string; sha256: string; note: string };
 }
 ```
 

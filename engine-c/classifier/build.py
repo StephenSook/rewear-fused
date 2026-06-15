@@ -204,11 +204,28 @@ def main() -> int:
     for g, c in zip(garments, classifications):
         files.append(_write(ARTIFACTS / "passports" / f"dpp_{g['id']}.json", _passport(g, c)))
 
+    # Frozen-model parity anchor (spec §6.4). We freeze on OUTPUT parity, not the
+    # model binary: CatBoost .cbm bytes are not guaranteed reproducible across the
+    # build host (py 3.12.10) and Render (py 3.12.5), so a binary hash would brick
+    # the boot on a benign serialization diff. What the demo + a regulator actually
+    # need is that the SERVED classifications are byte-identical to the signed,
+    # frozen outputs — that is exactly classifications.json, already SHA'd in files[].
+    # The endpoint refuses to boot if the shipped file's SHA != this anchor.
+    parity = next(f for f in files if f["path"] == "compliance/classifications.json")
     manifest = {
         "version": "1.0.0",
         "generatedAt": "2026-06-14T20:00:00Z",
         "files": files,
         "modelVersions": {"engineC": MODEL_VERSION},
+        "frozenParity": {
+            "kind": "output",
+            "path": parity["path"],
+            "sha256": parity["sha256"],
+            "note": "endpoint verifies the served bundle's SHAs on startup (anchor: "
+                    "classifications.json). Output-parity, not model-binary parity. "
+                    "Tamper-evident vs drift/corruption/wrong-deploy; the per-passport "
+                    "Ed25519 signature is the authenticity anchor.",
+        },
         "issuer": _DID,
     }
     (ARTIFACTS / "manifest.json").write_text(json.dumps(manifest, indent=2))

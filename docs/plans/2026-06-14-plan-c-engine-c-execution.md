@@ -33,6 +33,23 @@ What is actually in this repo right now, confirmed by reading the code:
 > - **9 tests pass**; local endpoint smoke-tested (`/healthz`, `/classify`, `/passport` all 200 serving real output).
 > - **Found + fixed a latent landmine:** `core.autocrlf=true` made `build.py` sign the manifest over CRLF bytes while git stores LF → manifest SHA mismatch that turned CI's *Artifact contract conformance* job red. Added `.gitattributes` forcing LF on all signed artifacts (`*.json`, `data/artifacts/**`, `*.py`) + re-signed over LF. **CI is now all-green.** This directly de-risks **C1** (frozen-model SHA verify) and **C5** (freeze gate) — both relied on byte-stable hashes that the CRLF bug would have broken.
 
+> **✅ C1 COMPLETE — Jun 15.** Frozen-model parity (spec §6.4) shipped via **output-parity**, the pre-decided §4 fallback, chosen deliberately over model-binary parity:
+> - **Decision (output > binary):** CatBoost `.cbm` bytes are not guaranteed reproducible across the build host (py 3.12.10) and Render (py 3.12.5), so a binary hash would brick the boot on a benign serialization diff. What the demo + a regulator actually need is that the **served decisions/probabilities are provably the frozen ones** — that's `classifications.json`. Logged honestly as `frozenParity.kind = "output"` in the manifest, not dressed up as binary parity.
+> - **`build.py`:** manifest now carries a `frozenParity` anchor (`{kind:"output", path:"compliance/classifications.json", sha256, note}`). Rebuild reproduced byte-identical output — SHA `bb95f4e8…` matches the prior `files[]` entry, confirming the model is reproducible (which is what the freeze gate relies on). Real PR-AUC unchanged: flammability **0.990**, drawstring **0.960**, lead **0.246**.
+> - **`api/main.py`:** new `_verify_frozen_parity()` runs **at import time** → hashes the served `classifications.json`, compares to the manifest anchor, and **raises `FrozenModelMismatch` (refuses to boot) on any mismatch or missing manifest**. uvicorn never binds the port → Render's health check never goes green on a tampered/unverifiable bundle. `/healthz` now reports `model_sha_ok: true` + `frozen_parity_sha` so the keepalive cron surfaces the proof on every ping.
+> - **Tests:** `tests/test_parity.py` pins the pass path **and** the refuse-to-boot path (tampered classifications → raises; absent manifest → raises). **13 tests pass** (was 9). Boot smoke-tested: `/healthz` → `model_sha_ok: true`, `/classify` serves the frozen output.
+> - **Validator:** `--strict` clean for Engine C; the 5 remaining failures are Pravin's A/B artifacts (fibers/enzymes/pairs), not this lane. The `frozenParity` block did not break manifest reverse-coverage.
+> - **Critical path is now clear through C1.** Next: **C2** (Render deploy + smoke the 3 endpoints) — the gate will now actively prove parity on the live host.
+>
+> **C1 review pass (2 parallel adversarial reviewers — correctness + honesty/contract) — fixes applied Jun 15:**
+> - **Gate now verifies the WHOLE bundle, not just the anchor.** `_verify_frozen_parity()` loops every manifest `files[]` entry (garments, regulations, classifications, all 3 passports) — a drifted/unsigned-mismatch passport can no longer be served alongside a clean classifications.json. Anchor kept as the must-exist canary.
+> - **Honesty fix (the moat):** renamed `/healthz` `model_sha_ok` → `output_sha_ok` + added `parity_kind: "output"`. The old name implied model-*binary* parity, which we deliberately do NOT do — that was the one label that overstated the verification. Field is now a LIVE re-hash on each ping (was hardcoded `True`), so the keepalive cron surfaces a real check.
+> - **Threat-model honesty:** docstring + manifest note now scope the gate accurately — tamper-EVIDENT vs drift/corruption/wrong-deploy, NOT cryptographic authenticity (the manifest lives in the same bundle; a coordinated rebuild would pass). The real authenticity anchor is the per-passport Ed25519 signature. Have this one-liner ready for judges. (Manifest-signing with the existing issuer key is a possible stretch hardening — not critical path.)
+> - **End-to-end boot test added:** subprocess test asserts `import api.main` against a tampered bundle exits NON-ZERO with `FrozenModelMismatch` — the exact behavior Render depends on (uvicorn never binds → deploy marked failed). Plus a drifted-passport test. **15 tests pass** (was 13).
+> - **Fixed pre-existing drift:** `frontend/src/lib/artifacts/manifest.json` was stale (mismatched SHAs, no `frozenParity`). Re-ran `scripts/sync_artifacts_to_frontend.py` → frontend bundle now matches canonical.
+> - **Contract:** added optional `frozenParity` to the `Manifest` interface in `data/contract.md` AND `frontend/src/lib/types.ts`. Additive, manifest-level only — does NOT touch passport/classification shapes, so per §7 not a `⚠️ CONTRACT` event. **Heads-up to Stephen:** `types.ts` Manifest gained an optional `frozenParity?` field (no action needed; nothing he reads breaks).
+> - Validator `--strict` still clean for Engine C (only Pravin's A/B failures remain). Line endings renormalized to LF on all rebuilt artifacts (the C0 CRLF landmine — re-checked, anchor is LF on both index + worktree).
+
 ---                                                                                 
 
 ## 1. Phase table (PLAN.md status: 3.4 is the live one)
@@ -42,7 +59,7 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked · ✂️
 | # | Phase | Tier | Files | Status | Deps | Role |
 |---|-------|------|-------|--------|------|------|
 | C0 | Re-ingest CPSC corpus + green local build | **Core** | `ingest/`, `data/datasets/` | ✅ | — | **the unblocker — DONE Jun 15** |
-| C1 | Frozen-model parity: SHA verify on startup | **Core** | `api/main.py`, `classifier/build.py` | ⬜ | C0 | **critical path** |
+| C1 | Frozen-model parity: SHA verify on startup | **Core** | `api/main.py`, `classifier/build.py` | ✅ | C0 | **critical path — DONE Jun 15** |
 | C2 | Deploy to Render + smoke the 3 endpoints | **Core** | `render.yaml`, Render dashboard | ⬜ | C1 | **convergence point** |
 | C3 | Keepalive cron live (secret + URL) | **Core** | `.github/workflows/keepalive.yml` | ⬜ | C2 | critical path |
 | C4 | Wire frontend env → live endpoint (hand to Stephen) | **Core** | (Stephen's 4.1) | ⬜ | C2 | convergence |
@@ -111,7 +128,7 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked · ✂️
 - [x] `python -m ingest.cpsc` rebuilt the real corpus (real public data) — **631 real CPSC recalls, live API, Jun 15**
 - [x] `python -m classifier.build` emits real classifications, **zero `"placeholder": true`** — verified clean
 - [x] `validate_artifacts.py --strict` green for Engine C (shapes + locked constraints + manifest SHA parity) — *remaining `--strict` failures are Pravin's A/B artifacts, not this lane; CI non-strict contract job is **green***
-- [ ] Model serialized + SHA in manifest; endpoint verifies on startup — **C1, next**
+- [x] Frozen-model parity: output SHA in manifest (`frozenParity` anchor); endpoint verifies served `classifications.json` on startup + refuses to boot on mismatch (`model_sha_ok` on `/healthz`) — **C1 DONE Jun 15** (output-parity per §4; 13 tests green)
 - [ ] Render endpoint deployed; `/healthz`, `/classify/{id}`, `/passport/{id}` all 200
 - [ ] Keepalive cron live + green (endpoint stays warm)
 - [ ] Stephen has the Render URL for Vercel env (4.1)

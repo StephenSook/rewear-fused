@@ -42,5 +42,11 @@
   "modelVersions": {
     "engineC": "catboost-text-v1.0"
   },
+  "frozenParity": {
+    "kind": "output",
+    "path": "compliance/classifications.json",
+    "sha256": "bb95f4e8894a5611eabe509877cb933330308f02e4b377e6997009ae37871be8",
+    "note": "endpoint verifies the served bundle's SHAs on startup (anchor: classifications.json). Output-parity, not model-binary parity. Tamper-evident vs drift/corruption/wrong-deploy; the per-passport Ed25519 signature is the authenticity anchor."
+  },
   "issuer": "did:key:z6MkuBjwGH6xfC5Fh5C4anbn4WcG8S86AAexvnZQLBV966Uv"
 }
