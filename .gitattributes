@@ -1,0 +1,16 @@
+# Force LF for all SHA-signed artifacts so manifest hashes are byte-stable across
+# Windows (local build), Linux CI, and the Render deploy. CRLF conversion here
+# silently breaks manifest SHA parity and the frozen-model verification gate.
+data/artifacts/**       text eol=lf
+data/datasets/**        binary
+
+# JSON / data files: deterministic LF everywhere
+*.json                  text eol=lf
+
+# Python: LF (matches Linux CI + Render runtime)
+*.py                    text eol=lf
+
+# Parquet and other binaries: never touch
+*.parquet               binary
+*.cbm                   binary
+*.pdb                   binary
