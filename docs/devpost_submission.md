@@ -1,6 +1,23 @@
 # DevPost submission (paste-ready, mapped to the form fields)
 
-Hard deadline: **June 16 11:59pm**. Add all three members. Track + video + T&C are required. Verify the video plays in incognito before submitting. No em-dashes anywhere (sweep before paste).
+Hard deadline: **June 16 11:59pm ET** (the digital submission is EDITABLE until then, then it locks; June 17 is pitch + demo only). Team + track were submitted June 14. Add all three members. Track + video + T&C are required. Verify the video plays in incognito before submitting. No em-dashes anywhere (sweep before paste).
+
+---
+
+## PASTE THESE EXACT VALUES (canonical source; DevPost editable until Tue June 16 11:59pm ET)
+- **Project name:** `REWEAR-FUSED` (all caps; if the site shows "Rewear-Fused", change it to match the brand).
+- **Track** (Additional info dropdown): `5. Make & Remake`.
+- **Terms consent:** Yes. Each member also signs the DocuSign Terms email AND completes the SEPARATE Cox Hackathon Registration Google Form (.edu, in-person Atlanta June 14-17) - that form is distinct from DevPost.
+- **Team:** `@stephensookra` (creator), `@vinhbin` (Vinh Le), `@pkireri` (Pravin Ireri). DevPost submission id `1049249`.
+- **Elevator pitch - PRIMARY (number-led, ~188 chars, under the 200 cap):**
+  ```
+  Elastane is in 80% of clothing; 1% makes recyclers reject the whole garment. REWEAR-FUSED co-designs a cleavable elastane and the de novo enzyme that closes the loop, plus a live passport.
+  ```
+- **Elevator pitch - ALTERNATIVE (customer-led, ~180 chars):**
+  ```
+  Carter's downcycles baby clothes into pet bedding because 1% elastane gets a garment rejected. REWEAR-FUSED co-designs a cleavable elastane and the de novo enzyme that closes the loop.
+  ```
+  Pick ONE. PRIMARY leads with the number (Sookra Pillar 3). ALTERNATIVE names the customer + the novelty hook up front (maps to the rubric's Problem & Customer 10% + Novelty 15%). Watch the live counter; trim if it shows negative.
 
 ---
 
@@ -12,7 +29,7 @@ REWEAR-FUSED
 ```
 
 ### Elevator pitch / tagline (200 chars max)
-Use this (196 chars, under the 200 cap; trim "deployable" if the counter disagrees):
+Use the PRIMARY pitch from the "PASTE THESE EXACT VALUES" block above (~188 chars, under the 200 cap; verify the live counter):
 ```
 Elastane is in 80% of clothing; 1% makes recyclers reject the whole garment. REWEAR-FUSED co-designs a cleavable elastane and the de novo enzyme that closes the loop, plus a live passport.
 ```
@@ -34,7 +51,7 @@ REWEAR-FUSED is one computational co-design loop with three engines.
 - **Engine B** designs the matched enzyme, a de novo carbamate hydrolase shaped to cut the exact bond Engine A built, with a near-neutral Ser-His-Asp triad so it leaves the companion cotton alone.
 - **Engine C** is the Digital Recyclability Passport: a live classifier that routes each garment clear, lab-test, or divert against real US and EU regulation, then emits a scannable GS1 Digital Link passport.
 
-Put together, the app makes the loop visible. A garment goes in, the system proposes a redesigned cleavable fiber, designs an enzyme against it, renders both structures in 3D, and animates the close: today's shred-to-pet-bedding on one side, depolymerize and re-spin into a new onesie on the other.
+Put together, the app makes the loop visible. A garment goes in, the system proposes a redesigned cleavable fiber, designs an enzyme against it, renders both structures in 3D, and animates the close: today's shred-to-pet-bedding on one side, depolymerize and re-spin into a new onesie on the other. By design it is a regenerative loop, not a one-time recycle: the same material is engineered to become a new garment again and again, a closed loop instead of a one-way downcycle.
 
 ## How we built it
 The frontend is Next.js 16, React 19, and Tailwind v4. Mol* 5.9 renders the enzyme at publication grade, React Three Fiber drives a custom GPU particle storm for the closed loop, visx draws the trade-off curve, and GSAP and Lenis carry the scroll. It deploys on Vercel.
@@ -51,7 +68,7 @@ A real, deployed product, not a mockup: the passport endpoint and the five-view 
 The crystallinity-versus-stretch trade-off is real, and it has a published design window: 25 to 35 percent hard segment. We made it the centerpiece instead of hiding it. Calibrated honesty wins deep-tech rooms; over-claiming loses them. And a green build is not a working app, so we opened every view in a real browser before we believed it.
 
 ## What's next for REWEAR-FUSED
-Wet lab. Express the top enzyme designs, spin a fiber sample, prove activity on a carbamate surrogate, file a provisional, and pilot one Carter's SKU. The Cox Cleantech Residency ask is exactly that: ten thousand dollars and six weeks. We are the Nexus Circular of textiles, the same shape Cox already backed, and the path forward is a license to incumbents (Hyosung, LYCRA, Asahi Kasei) on a 2030 to 2032 horizon.
+Wet lab. Express the top enzyme designs, spin a fiber sample, prove activity on a carbamate surrogate, file a provisional, and pilot one Carter's SKU. The Cox Cleantech Residency ask is exactly that: ten thousand dollars and six weeks. We are the Nexus Circular of textiles, the same shape Cox already backed, and the path forward is a license to incumbents (Hyosung, LYCRA, Asahi Kasei) on a 2030 to 2032 horizon. Because the cleavable fiber is drop-in to the solution dry-spinning those incumbents already run, the impact scales with time and resources rather than new capital: one license puts it on millions of garments.
 ```
 
 ### Built with (comma list)
