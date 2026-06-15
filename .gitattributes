@@ -10,6 +10,9 @@ data/datasets/**        binary
 # Python: LF (matches Linux CI + Render runtime)
 *.py                    text eol=lf
 
+# Dependency manifests: LF so the Render (Linux) build reads the same bytes we test
+*.txt                   text eol=lf
+
 # Parquet and other binaries: never touch
 *.parquet               binary
 *.cbm                   binary

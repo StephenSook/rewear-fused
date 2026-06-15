@@ -6,7 +6,11 @@ services:
     runtime: python
     rootDir: engine-c
     plan: free
-    buildCommand: pip install -r requirements.txt
+    # Runtime-only deps: the API serves the pre-built signed bundle (pure FastAPI +
+    # stdlib) and never trains/scores, so we skip the heavy build-only ML/chem stack
+    # (rdkit, catboost, pandas, pyarrow, scikit-learn) that lives in requirements.txt.
+    # Keeps the free-plan build fast and avoids build-timeout/OOM on wheels we never load.
+    buildCommand: pip install -r requirements-api.txt
     startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /healthz
     autoDeploy: true

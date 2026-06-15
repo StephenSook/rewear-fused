@@ -1,0 +1,18 @@
+# Engine C *runtime* deps — what the live endpoint actually imports.
+#
+# The deployed service (api/main.py) only serves the pre-built, signed artifact
+# bundle: it is pure FastAPI + stdlib (json, hashlib, pathlib). It does NOT train
+# or score — that already happened offline in classifier.build, whose outputs are
+# frozen in data/artifacts/v1.0.0. So the heavy ML/chem stack (rdkit, catboost,
+# pandas, pyarrow, scikit-learn) is build-only and lives in requirements.txt.
+#
+# Render installs THIS file (see render.yaml) so the free-plan build is fast and
+# can't time out / OOM on rdkit+catboost wheels the runtime never loads. Proven:
+# a clean venv with only these two deps imports api.main, passes the frozen-parity
+# gate, and serves all endpoints 200.
+#
+# Local training/build still uses the full requirements.txt:
+#   pip install -r requirements.txt   # train + build the bundle
+#   pip install -r requirements-api.txt  # just run the API against a built bundle
+fastapi>=0.115
+uvicorn[standard]>=0.32
