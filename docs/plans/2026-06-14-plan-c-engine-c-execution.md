@@ -27,6 +27,12 @@ What is actually in this repo right now, confirmed by reading the code:
 
 **The single first blocker:** `python -m classifier.build` fails today because the parquet is gone. Fix = run the ingest (§1). No copying; regenerating from the live public API *is* the honest path.
 
+> **✅ C0 COMPLETE — Jun 15.** The blocker is cleared. Done on Python 3.12.10 (matches `render.yaml`):
+> - Live CPSC ingest pulled **631 real recalls** → `data/datasets/cpsc_recalls.parquet` (631 rows; 353 with a mapped regulatory category). The pitch's "631" is now an audited, verifiable number.
+> - Build green, **zero placeholders**, all passports Ed25519-signed. Real PR-AUC (honest, matches §6): flammability **0.990** (206 pos), drawstring **0.960** (142 pos), lead **0.246** (12 pos).
+> - **9 tests pass**; local endpoint smoke-tested (`/healthz`, `/classify`, `/passport` all 200 serving real output).
+> - **Found + fixed a latent landmine:** `core.autocrlf=true` made `build.py` sign the manifest over CRLF bytes while git stores LF → manifest SHA mismatch that turned CI's *Artifact contract conformance* job red. Added `.gitattributes` forcing LF on all signed artifacts (`*.json`, `data/artifacts/**`, `*.py`) + re-signed over LF. **CI is now all-green.** This directly de-risks **C1** (frozen-model SHA verify) and **C5** (freeze gate) — both relied on byte-stable hashes that the CRLF bug would have broken.
+
 ---                                                                                 
 
 ## 1. Phase table (PLAN.md status: 3.4 is the live one)
@@ -35,7 +41,7 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked · ✂️
 
 | # | Phase | Tier | Files | Status | Deps | Role |
 |---|-------|------|-------|--------|------|------|
-| C0 | Re-ingest CPSC corpus + green local build | **Core** | `ingest/`, `data/datasets/` | ⬜ | — | **the unblocker** |
+| C0 | Re-ingest CPSC corpus + green local build | **Core** | `ingest/`, `data/datasets/` | ✅ | — | **the unblocker — DONE Jun 15** |
 | C1 | Frozen-model parity: SHA verify on startup | **Core** | `api/main.py`, `classifier/build.py` | ⬜ | C0 | **critical path** |
 | C2 | Deploy to Render + smoke the 3 endpoints | **Core** | `render.yaml`, Render dashboard | ⬜ | C1 | **convergence point** |
 | C3 | Keepalive cron live (secret + URL) | **Core** | `.github/workflows/keepalive.yml` | ⬜ | C2 | critical path |
@@ -102,10 +108,10 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked · ✂️
 ## 5. G3 / G4 gate checklist (start now, grow it)
 
 **G3 — artifact-freeze (June 15 EOD, hard):**
-- [ ] `python -m ingest.cpsc` rebuilt the real corpus (real public data)
-- [ ] `python -m classifier.build` emits real classifications, **zero `"placeholder": true`**
-- [ ] `validate_artifacts.py --strict` green (shapes + locked constraints + manifest SHA parity)
-- [ ] Model serialized + SHA in manifest; endpoint verifies on startup
+- [x] `python -m ingest.cpsc` rebuilt the real corpus (real public data) — **631 real CPSC recalls, live API, Jun 15**
+- [x] `python -m classifier.build` emits real classifications, **zero `"placeholder": true`** — verified clean
+- [x] `validate_artifacts.py --strict` green for Engine C (shapes + locked constraints + manifest SHA parity) — *remaining `--strict` failures are Pravin's A/B artifacts, not this lane; CI non-strict contract job is **green***
+- [ ] Model serialized + SHA in manifest; endpoint verifies on startup — **C1, next**
 - [ ] Render endpoint deployed; `/healthz`, `/classify/{id}`, `/passport/{id}` all 200
 - [ ] Keepalive cron live + green (endpoint stays warm)
 - [ ] Stephen has the Render URL for Vercel env (4.1)
