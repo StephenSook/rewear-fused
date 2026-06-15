@@ -306,7 +306,7 @@ def v_manifest() -> None:
     listed = {entry.get("path") for entry in data.get("files", [])}
     for p in ART.rglob("*"):
         if p.is_file() and p.name != "manifest.json":
-            rel = str(p.relative_to(ART))
+            rel = p.relative_to(ART).as_posix()  # forward slashes: match manifest paths on Windows + Linux
             if rel not in listed:
                 err("manifest", f"present artifact '{rel}' is not covered by the manifest files[] (unsigned)")
 

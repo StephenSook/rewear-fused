@@ -6,7 +6,7 @@
   "classification": {
     "garmentId": "carters-bodysuit-cotton",
     "decision": "clear",
-    "probability": 0.973,
+    "probability": 0.974,
     "prAuc": 0.732,
     "auc": 0.951,
     "triggeredRegulations": [
@@ -49,7 +49,7 @@
     "proof": {
       "type": "Ed25519Signature2020",
       "verificationMethod": "did:key:z6MkuBjwGH6xfC5Fh5C4anbn4WcG8S86AAexvnZQLBV966Uv#key-1",
-      "signatureValue": "EOayYC3hD8tTVB1bnePVJQ27vTJ4NDSfkxLSuTyIOHINRGmLhyqF6ZI83b7HEs3JonxOtPGkcZ5ECI9QNkUIAA=="
+      "signatureValue": "V8Qw+Ly2og6vdyuMzw6S+mBygp/YAkj5TW0YN/nuRP7QnDMQH6sKUWhikQmO8R9ZQoru+6vp1tDAR2xiR3PkDw=="
     }
   },
   "trl": "TRL 2-3",

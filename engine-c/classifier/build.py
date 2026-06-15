@@ -175,7 +175,7 @@ def _write(path: Path, obj) -> dict:
     raw = json.dumps(obj, indent=2).encode()
     path.write_bytes(raw)
     return {
-        "path": str(path.relative_to(ARTIFACTS)),
+        "path": path.relative_to(ARTIFACTS).as_posix(),  # forward slashes: portable + matches Linux deploy
         "sha256": hashlib.sha256(raw).hexdigest(),
         "bytes": len(raw),
         "producedBy": "engine-c",

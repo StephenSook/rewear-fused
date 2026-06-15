@@ -2,7 +2,7 @@
   {
     "garmentId": "carters-bodysuit-cotton",
     "decision": "clear",
-    "probability": 0.973,
+    "probability": 0.974,
     "prAuc": 0.732,
     "auc": 0.951,
     "triggeredRegulations": [
