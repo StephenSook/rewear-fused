@@ -31,8 +31,8 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked
 | 1.7 | VIEW 1 Story cold-open | frontend/src/app/page.tsx | Stephen | ✅ | 1.6 | scroll story + stat count-up |
 | 1.8 | Scroll shell (Lenis, loader, nav rail, sound) | frontend/src/components | Stephen | ✅ | - | global; loop regression-checked under Lenis |
 | 1.9 | Garment archetype thumbnails | frontend/public/archetypes | Stephen | ✅ | 1.3 | stills wired into the passport |
-| 2.1 | Engine B pipeline | backend/engine_b | Pravin | ⬜ | 0.4 | RFdiffusion -> ... -> FoldSeek |
-| 2.2 | Engine A screening | engine-a/ (RDKit) | Stephen→Pravin | 🟡 | 0.4 | RDKit reference impl (CPU-feasible); → Pravin to own/extend |
+| 2.1 | Engine B pipeline | backend/engine_b | Pravin | ✅ | 0.4 | RFdiffusion -> ... -> FoldSeek |
+| 2.2 | Engine A screening | engine-a/ (RDKit) | Stephen→Pravin | ✅ | 0.4 | RDKit reference impl (CPU-feasible); → Pravin to own/extend |
 | 2.3 | GPU pre-flight smoke | backend/scripts | Pravin | ⬜ | - | before molecular runs |
 | 2.4 | Artifact server + manifest | backend/api | Pravin | ⬜ | 2.1,2.2 | SHA-256 signed |
 | 3.1 | Engine C data ETL | engine-c/ingest | Stephen→Vinh | ✅ | 0.4 | 631 real CPSC recalls ingested + labeled; → Vinh to extend (Safety Gate, PFAS) |
