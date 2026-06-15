@@ -26,79 +26,32 @@ A 3:2 capture of the enzyme view (Mol* with the green triad) or the loop cleavag
 
 ```markdown
 ## Inspiration
-Carter's runs KIDCYCLE, collecting worn baby clothes through TerraCycle, then
-downcycling them into insulation and pet bedding. A onesie never becomes a onesie
-again because of two walls: nobody can prove the recovered fabric is chemically
-safe for infant skin, and nobody can break down the elastane in every stretch
-garment. Elastane is in about 80% of clothing, and as little as 1% of it makes a
-textile recycler reject the whole garment. We wanted to knock down both walls.
+Carter's already collects worn baby clothes through KIDCYCLE. The problem is where they end up: shredded into insulation and pet bedding, never another onesie. Two walls stop the loop. Nobody can prove the recovered fabric is chemically safe against a baby's skin, and nobody can break down the elastane woven into every stretch garment. That second wall is small and brutal. Elastane is in about 80% of clothing, and as little as 1% of it makes a recycler reject the whole garment. We set out to knock down both.
 
 ## What it does
-REWEAR-FUSED is a single computational co-design loop with three engines.
-- **Engine A** designs a new enzymatically-cleavable elastane fiber by
-  constraint-guided screening of polyurethane-urea chemistry: aliphatic
-  isocyanates only (so nothing carcinogenic comes off near a baby), the cleavable
-  bond in the amorphous soft segment, 25 to 35 percent hard segment.
-- **Engine B** designs a de novo carbamate hydrolase, an enzyme
-  shaped to cleave the exact bond in Engine A's fiber, with an engineered
-  near-neutral Ser-His-Asp triad so it does not damage companion cotton.
-- **Engine C** is a Digital Recyclability Passport: a live compliance classifier
-  that routes each garment clear, lab-test, or divert against real US and EU
-  regulation, and emits a scannable GS1 Digital Link / EU Digital Product Passport.
+REWEAR-FUSED is one computational co-design loop with three engines.
+- **Engine A** designs a new cleavable elastane fiber. It screens polyurethane-urea chemistry under hard constraints: aliphatic isocyanates only, so nothing carcinogenic comes off near a baby; the cleavable bond in the soft, amorphous segment, so the stretch survives; 25 to 35 percent hard segment.
+- **Engine B** designs the matched enzyme, a de novo carbamate hydrolase shaped to cut the exact bond Engine A built, with a near-neutral Ser-His-Asp triad so it leaves the companion cotton alone.
+- **Engine C** is the Digital Recyclability Passport: a live classifier that routes each garment clear, lab-test, or divert against real US and EU regulation, then emits a scannable GS1 Digital Link passport.
 
-The web app makes the loop visible: a garment enters, the system proposes a
-redesigned cleavable fiber, designs a matched enzyme against it, renders the 3D
-structures, and animates the closed loop, today's shred-to-pet-bedding versus
-depolymerize and re-spin into a new onesie.
+Put together, the app makes the loop visible. A garment goes in, the system proposes a redesigned cleavable fiber, designs an enzyme against it, renders both structures in 3D, and animates the close: today's shred-to-pet-bedding on one side, depolymerize and re-spin into a new onesie on the other.
 
 ## How we built it
-- Frontend: Next.js 16, React 19, Tailwind v4, Mol* 5.9 for publication-grade
-  enzyme rendering, React Three Fiber with a custom GPU vertex-shader particle
-  storm for the closed loop, visx for the trade-off curve, GSAP and Lenis for the
-  scroll narrative. Deployed on Vercel.
-- Engine C: a real FastAPI service deployed on Render, serving a signed,
-  pre-computed artifact bundle, with a deterministic rule layer over real
-  regulatory thresholds plus a classifier trained on real public datasets (CPSC
-  Recalls, EU Safety Gate, Toxic-Free Future / Peaslee PFAS, OEKO-TEX).
-- Engines A and B: the open-source de novo design toolchain (RFdiffusion,
-  LigandMPNN, Boltz-2, PLACER, FoldSeek) and RDKit-based polymer screening,
-  anchored on the published UMG-SP2 urethanase transition-state geometry.
-- The frontend reads pre-computed, SHA-256-signed artifacts so the demo never
-  depends on a live GPU job; Engine C also runs live so the link works for anyone.
+The frontend is Next.js 16, React 19, and Tailwind v4. Mol* 5.9 renders the enzyme at publication grade, React Three Fiber drives a custom GPU particle storm for the closed loop, visx draws the trade-off curve, and GSAP and Lenis carry the scroll. It deploys on Vercel.
+
+Engine C runs for real. It is a FastAPI service on Render serving a signed, pre-computed artifact bundle, with a deterministic rule layer over real regulatory thresholds and a classifier trained on real public data (CPSC Recalls, EU Safety Gate, Toxic-Free Future / Peaslee PFAS, OEKO-TEX). Engines A and B use the open-source design toolchain (RFdiffusion, LigandMPNN, Boltz-2, PLACER, FoldSeek) plus RDKit polymer screening, anchored on the published UMG-SP2 urethanase geometry. The frontend reads pre-computed, SHA-256-signed artifacts, so the demo never waits on a GPU. Engine C also runs live, so the link works for anyone.
 
 ## Challenges we ran into
-- Elastane's crystalline hard segments physically block enzymes, so we inverted
-  the problem: redesign the fiber to be cleavable rather than attack today's fiber.
-- Mol* crashed the Next.js Turbopack production build, so we moved to webpack.
-- A fixed full-screen WebGL background canvas was hidden behind the page
-  background until we fixed the z-index layering.
-- We held a strict honesty line: everything is in-silico (TRL 2-3), trained on
-  real public data, with no synthetic data and no fictional persona.
+Existing elastane fights back. Its crystalline hard segments physically block enzymes, which is why every native enzyme fails on the intact fiber. So we inverted the problem: instead of attacking today's fiber, we redesigned the fiber to be breakable and built the enzyme to match. The engineering had its own potholes. Mol* crashed the Next.js Turbopack production build and we moved to webpack, and a full-screen WebGL background sat hidden behind the page until we fixed the z-index. The hardest discipline was honesty: everything molecular is in-silico, TRL 2 to 3, trained on real public data, with no synthetic data and no invented persona.
 
 ## Accomplishments that we're proud of
-- A real, deployed product (the passport endpoint and the five-view app) with
-  passing CI, not a mockup.
-- Two open novelty flags: no de novo carbamate hydrolase and no AI-co-designed
-  cleavable elastane have been publicly disclosed; we verified the prior art and
-  fact-checked our citations.
-- The honesty moat: every number traces to a real pipeline output or a verified
-  DOI, surfaced on a /judges page that tiers each engine real versus in-silico.
+A real, deployed product, not a mockup: the passport endpoint and the five-view app, CI passing. Two open novelty flags we checked ourselves, no de novo carbamate hydrolase and no AI-co-designed cleavable elastane have been publicly disclosed, and we fact-checked the prior art and the citations behind that claim. And the honesty moat. Every number traces to a real pipeline output or a verified DOI, and a /judges page tiers each engine real versus in-silico, so anyone can check our work instead of taking our word.
 
 ## What we learned
-- The crystallinity versus stretch trade-off has a real published design window
-  (25 to 35 percent hard segment); we made it the honesty centerpiece, not a thing
-  we hid.
-- Calibrated honesty wins deep-tech rooms; over-claiming loses them.
-- A passing build is not a working app; we verified every view in a real browser.
+The crystallinity-versus-stretch trade-off is real, and it has a published design window: 25 to 35 percent hard segment. We made it the centerpiece instead of hiding it. Calibrated honesty wins deep-tech rooms; over-claiming loses them. And a green build is not a working app, so we opened every view in a real browser before we believed it.
 
 ## What's next for REWEAR-FUSED
-- Wet-lab validation: express the top enzyme designs, spin a fiber sample, prove
-  activity on a carbamate surrogate, file a provisional patent, and pilot one
-  Carter's SKU. The Cox Cleantech Residency ask is 10 thousand dollars and six
-  weeks to do exactly this.
-- We are the Nexus Circular of textiles, the shape Cox already backed. License the
-  fiber and enzyme to incumbents (Hyosung, LYCRA, Asahi Kasei) on a 2030 to 2032
-  horizon.
+Wet lab. Express the top enzyme designs, spin a fiber sample, prove activity on a carbamate surrogate, file a provisional, and pilot one Carter's SKU. The Cox Cleantech Residency ask is exactly that: ten thousand dollars and six weeks. We are the Nexus Circular of textiles, the same shape Cox already backed, and the path forward is a license to incumbents (Hyosung, LYCRA, Asahi Kasei) on a 2030 to 2032 horizon.
 ```
 
 ### Built with (comma list)
