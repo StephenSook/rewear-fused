@@ -4,14 +4,14 @@
   "files": [
     {
       "path": "garments.json",
-      "sha256": "400629cd1a80a0ab06d0d2c3a3656021b6582acba18a135fc6ca831590f8e0ea",
-      "bytes": 1287,
+      "sha256": "4968684574f98811df952507c2793695a80d96f53ccea3bfee3dcc97108fcf5e",
+      "bytes": 1252,
       "producedBy": "input"
     },
     {
       "path": "compliance/regulations.json",
-      "sha256": "64f107ed64e823bb97452447577fe5d354965e0b7c5964ce3e8633d4d619fe5a",
-      "bytes": 1492,
+      "sha256": "b39e1851124f36311c22fb20754ddb6b1d609e27b51c335457f880d0417652c7",
+      "bytes": 1483,
       "producedBy": "input"
     },
     {
