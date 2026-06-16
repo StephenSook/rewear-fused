@@ -4,7 +4,7 @@ import { DownloadSimple, Check } from "@phosphor-icons/react/dist/ssr";
 import { BeveledBox, MonoLabel, InSilicoBadge } from "./instrument";
 import { InstrumentButton } from "./instrument-button";
 import { RevealGroup, RevealItem } from "./reveal";
-import { engineB, pair, REFERENCE_PDB } from "@/lib/data";
+import { engineB, pair, DESIGN_PDB } from "@/lib/data";
 
 function Metric({
   label,
@@ -58,10 +58,9 @@ export function EnzymeDetail() {
               <span className="text-sm text-fg-muted"> ± {d.placer.uncertainty.toFixed(2)}</span>
             </span>
           </div>
-          <p className="mt-2 font-mono text-[0.6rem] leading-relaxed text-warn">
-            illustrative target values on the Lauko thresholds. The live PLACER /
-            FoldSeek numbers replace these when the GPU design run lands at the
-            artifact-freeze gate.
+          <p className="mt-2 font-mono text-[0.6rem] leading-relaxed text-fg-muted">
+            Real PLACER metrics for the LigandMPNN redesign, on the Lauko
+            thresholds. In-silico, not an expressed protein.
           </p>
           <div className="mt-4 space-y-2">
             <Metric
@@ -112,8 +111,8 @@ export function EnzymeDetail() {
 
       <RevealItem>
         <div className="flex flex-wrap items-center gap-3">
-          <InstrumentButton href={REFERENCE_PDB} accent="bio" download stream>
-            <DownloadSimple className="h-4 w-4" /> Reference scaffold .pdb
+          <InstrumentButton href={DESIGN_PDB} accent="bio" download stream>
+            <DownloadSimple className="h-4 w-4" /> Designed structure (enzyme-003) .bcif
           </InstrumentButton>
           <InSilicoBadge />
         </div>

@@ -46,7 +46,7 @@ export default function OpengraphImage() {
           The molecule for your next onesie, and the enzyme that closes its loop.
         </div>
         <div style={{ display: "flex", gap: 14, marginTop: 44 }}>
-          {["Cleavable elastane", "De novo enzyme", "Recyclability passport"].map((t) => (
+          {["Cleavable elastane", "Designed enzyme", "Recyclability passport"].map((t) => (
             <div
               key={t}
               style={{

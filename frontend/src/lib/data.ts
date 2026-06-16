@@ -5,10 +5,15 @@
  * reads the REAL signed artifact bundle produced by `engine-c/classifier/build.py`
  * (trained on live CPSC recalls; no placeholders). Synced into ./artifacts via
  * `scripts/sync_artifacts_to_frontend.py`. The live endpoint serves the same
- * bytes (frozen-model parity). Engine A/B (fibers, enzymes) stay on mock fixtures
- * until those GPU/RDKit pipelines run; the UI labels them in-silico.
+ * bytes (frozen-model parity). Engine A/B (fibers, enzymes) now read Pravin's REAL
+ * RDKit-screen + LigandMPNN-redesign artifacts (synced into ./artifacts); the UI
+ * labels them in-silico, and honestly as redesigns (TM ~0.8), not de-novo folds.
  */
-import * as mock from "./mock-data";
+import candidatesData from "./artifacts/candidates.json";
+import screeningData from "./artifacts/screening.json";
+import tradeoffData from "./artifacts/tradeoffCurve.json";
+import designsData from "./artifacts/designs.json";
+import pairsData from "./artifacts/topPairs.json";
 import garmentsData from "./artifacts/garments.json";
 import regulationsData from "./artifacts/regulations.json";
 import classificationsData from "./artifacts/classifications.json";
@@ -18,6 +23,11 @@ import type {
   Regulation,
   Classification,
   DigitalProductPassport,
+  FiberCandidate,
+  EnzymeDesign,
+  MatchedPair,
+  TradeoffCurve,
+  Screening,
 } from "./types";
 
 // JSON imports widen literal types (true -> boolean, "clear" -> string), so the
@@ -43,15 +53,29 @@ export function getPassport(garmentId: string): DigitalProductPassport | undefin
   return passports.find((p) => p.garmentId === garmentId);
 }
 
+// Engine A/B now read Pravin's REAL artifacts (RDKit screen + LigandMPNN-redesign
+// designs). Lead pair = enzyme-003 (best PLACER, a LigandMPNN redesign of CALB /
+// PDB 1TCA so it matches the scaffold the viewer renders) with its matched fiber-008.
+// JSON imports widen literals, so each is asserted back to its contract interface.
+const candidates = candidatesData as unknown as FiberCandidate[];
+const designs = designsData as unknown as EnzymeDesign[];
+const pairs = pairsData as unknown as MatchedPair[];
+
+const leadDesign = designs.find((d) => d.id === "enzyme-003") ?? designs[0]!;
+const leadPair = pairs.find((p) => p.enzymeId === leadDesign.id) ?? pairs[0]!;
+const leadFiber = candidates.find((c) => c.id === leadPair.fiberId) ?? candidates[0]!;
+
 export const engineA = {
-  candidate: mock.fiberCandidate,
-  tradeoff: mock.tradeoffCurve,
-  screening: mock.screening,
+  candidate: leadFiber,
+  tradeoff: tradeoffData as unknown as TradeoffCurve,
+  screening: screeningData as unknown as Screening,
 };
 
-export const engineB = { design: mock.enzymeDesign };
-export const pair = mock.matchedPair;
+export const engineB = { design: leadDesign };
+export const pair = leadPair;
 
-// The labeled reference serine-hydrolase scaffold (CALB, PDB 1TCA) the viewer
-// renders until Engine B's designed structure lands at the artifact-freeze gate.
+// The CALB / PDB 1TCA serine-hydrolase scaffold the viewer renders: it is the real
+// template the lead design (enzyme-003) is a LigandMPNN redesign of.
 export const REFERENCE_PDB = "/pdb/reference-hydrolase-1tca.pdb";
+// The real designed (redesigned) structure, offered as a download.
+export const DESIGN_PDB = "/pdb/enzyme-003.bcif";

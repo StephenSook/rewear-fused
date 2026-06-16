@@ -7,7 +7,7 @@ import { Reveal } from "@/components/reveal";
 import { REFERENCE_PDB } from "@/lib/data";
 
 export const metadata = {
-  title: "De Novo Carbamate Hydrolase · REWEAR-FUSED",
+  title: "Carbamate Hydrolase, Designed · REWEAR-FUSED",
 };
 
 export default function EnzymePage() {
@@ -22,14 +22,16 @@ export default function EnzymePage() {
 
       <Reveal>
         <header className="mt-6 mb-8">
-          <MonoLabel>Engine B · de novo design · the grand-prize moment</MonoLabel>
+          <MonoLabel>Engine B · de-novo target, redesign delivered · the grand-prize swing</MonoLabel>
           <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">
-            De Novo Carbamate Hydrolase
+            A Designed Carbamate Hydrolase
           </h1>
           <p className="mt-4 max-w-2xl text-fg-muted">
-            An enzyme designed de novo to cleave the carbamate bond in the
-            matched fiber. Anchored on the published UMG-SP2 transition-state
-            geometry, re-engineered to a near-neutral Ser-His-Asp triad.
+            Our swing is a de-novo carbamate hydrolase with no prior art; that GPU
+            run is deferred. What we engineered and validated in-silico is the
+            LigandMPNN-redesign fallback: a known serine-hydrolase scaffold with its
+            Ser-His-Asp triad repositioned for carbamate hydrolysis at near-neutral
+            pH. Real designs, honestly a redesign, not a de-novo fold.
           </p>
         </header>
       </Reveal>
@@ -38,9 +40,10 @@ export default function EnzymePage() {
         <Reveal delay={0.05}>
           <EnzymeStage url={REFERENCE_PDB} activeSite={[105, 187, 224]} chain="A" />
           <p className="mt-3 font-mono text-[0.65rem] text-fg-muted">
-            Reference serine-hydrolase scaffold (CALB, PDB 1TCA); the Ser-His-Asp
-            catalytic triad (Ser105 / His224 / Asp187) is highlighted in green. The
-            designed structure replaces it at the artifact-freeze gate. Drag to rotate.
+            The CALB / PDB 1TCA serine-hydrolase scaffold our lead design
+            (enzyme-003) is a LigandMPNN redesign of; its Ser-His-Asp catalytic triad
+            (Ser105 / His224 / Asp187) is highlighted in green. The designed
+            coordinates are downloadable in the readout. Drag to rotate.
           </p>
         </Reveal>
 

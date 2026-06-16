@@ -21,7 +21,7 @@ const STEPS: Step[] = [
   { path: "/", label: "The two walls", scrollSeconds: 13, holdMs: 14500 },
   { path: "/passport", label: "Digital Recyclability Passport", scrollSeconds: 7, holdMs: 9500 },
   { path: "/fiber", label: "Cleavable elastane", scrollSeconds: 8, holdMs: 10500 },
-  { path: "/enzyme", label: "De novo enzyme", scrollSeconds: 6, holdMs: 8500 },
+  { path: "/enzyme", label: "Designed enzyme", scrollSeconds: 6, holdMs: 8500 },
   { path: "/loop", label: "The closed loop", scrollSeconds: 13, holdMs: 14500 },
 ];
 

@@ -1,0 +1,242 @@
+[
+  {
+    "id": "fiber-001",
+    "isocyanate": {
+      "name": "HDI",
+      "type": "aliphatic",
+      "pubchemCid": 13242
+    },
+    "softSegment": {
+      "name": "PCL-diol",
+      "mwGramsPerMol": 2000
+    },
+    "chainExtender": "BDO",
+    "hardSegmentWtPct": 26.3,
+    "predicted": {
+      "tgSoftC": -58.0,
+      "tgHardC": 85.0,
+      "elongationPct": 580,
+      "modulusMPa": 8.5,
+      "confidence": 0.75
+    },
+    "accessibilityScore": 0.85,
+    "carbamateSmarts": "[#6]-[NH]-C(=O)-O-[#6]",
+    "inSilico": true
+  },
+  {
+    "id": "fiber-002",
+    "isocyanate": {
+      "name": "HDI",
+      "type": "aliphatic",
+      "pubchemCid": 13242
+    },
+    "softSegment": {
+      "name": "PCL-diol",
+      "mwGramsPerMol": 2000
+    },
+    "chainExtender": "EDA",
+    "hardSegmentWtPct": 25.8,
+    "predicted": {
+      "tgSoftC": -57.0,
+      "tgHardC": 92.0,
+      "elongationPct": 620,
+      "modulusMPa": 9.2,
+      "confidence": 0.75
+    },
+    "accessibilityScore": 0.83,
+    "carbamateSmarts": "[#6]-[NH]-C(=O)-O-[#6]",
+    "inSilico": true
+  },
+  {
+    "id": "fiber-003",
+    "isocyanate": {
+      "name": "IPDI",
+      "type": "aliphatic",
+      "pubchemCid": 17394
+    },
+    "softSegment": {
+      "name": "PCL-diol",
+      "mwGramsPerMol": 2000
+    },
+    "chainExtender": "BDO",
+    "hardSegmentWtPct": 28.4,
+    "predicted": {
+      "tgSoftC": -58.0,
+      "tgHardC": 95.0,
+      "elongationPct": 610,
+      "modulusMPa": 11.8,
+      "confidence": 0.8
+    },
+    "accessibilityScore": 0.82,
+    "carbamateSmarts": "[#6]-[NH]-C(=O)-O-[#6]",
+    "inSilico": true
+  },
+  {
+    "id": "fiber-004",
+    "isocyanate": {
+      "name": "IPDI",
+      "type": "aliphatic",
+      "pubchemCid": 17394
+    },
+    "softSegment": {
+      "name": "PCL-diol",
+      "mwGramsPerMol": 2000
+    },
+    "chainExtender": "EDA",
+    "hardSegmentWtPct": 27.9,
+    "predicted": {
+      "tgSoftC": -56.0,
+      "tgHardC": 102.0,
+      "elongationPct": 560,
+      "modulusMPa": 13.2,
+      "confidence": 0.75
+    },
+    "accessibilityScore": 0.8,
+    "carbamateSmarts": "[#6]-[NH]-C(=O)-O-[#6]",
+    "inSilico": true
+  },
+  {
+    "id": "fiber-005",
+    "isocyanate": {
+      "name": "IPDI",
+      "type": "aliphatic",
+      "pubchemCid": 17394
+    },
+    "softSegment": {
+      "name": "Polycarbonate-diol",
+      "mwGramsPerMol": 2000
+    },
+    "chainExtender": "BDO",
+    "hardSegmentWtPct": 29.8,
+    "predicted": {
+      "tgSoftC": -52.0,
+      "tgHardC": 98.0,
+      "elongationPct": 490,
+      "modulusMPa": 14.5,
+      "confidence": 0.65
+    },
+    "accessibilityScore": 0.73,
+    "carbamateSmarts": "[#6]-[NH]-C(=O)-O-[#6]",
+    "inSilico": true
+  },
+  {
+    "id": "fiber-006",
+    "isocyanate": {
+      "name": "H12MDI",
+      "type": "aliphatic",
+      "pubchemCid": 16156
+    },
+    "softSegment": {
+      "name": "PCL-diol",
+      "mwGramsPerMol": 2000
+    },
+    "chainExtender": "BDO",
+    "hardSegmentWtPct": 32.6,
+    "predicted": {
+      "tgSoftC": -57.0,
+      "tgHardC": 105.0,
+      "elongationPct": 520,
+      "modulusMPa": 16.8,
+      "confidence": 0.75
+    },
+    "accessibilityScore": 0.79,
+    "carbamateSmarts": "[#6]-[NH]-C(=O)-O-[#6]",
+    "inSilico": true
+  },
+  {
+    "id": "fiber-007",
+    "isocyanate": {
+      "name": "H12MDI",
+      "type": "aliphatic",
+      "pubchemCid": 16156
+    },
+    "softSegment": {
+      "name": "PCL-diol",
+      "mwGramsPerMol": 2000
+    },
+    "chainExtender": "EDA",
+    "hardSegmentWtPct": 31.2,
+    "predicted": {
+      "tgSoftC": -55.0,
+      "tgHardC": 112.0,
+      "elongationPct": 480,
+      "modulusMPa": 18.5,
+      "confidence": 0.75
+    },
+    "accessibilityScore": 0.76,
+    "carbamateSmarts": "[#6]-[NH]-C(=O)-O-[#6]",
+    "inSilico": true
+  },
+  {
+    "id": "fiber-008",
+    "isocyanate": {
+      "name": "H12MDI",
+      "type": "aliphatic",
+      "pubchemCid": 16156
+    },
+    "softSegment": {
+      "name": "Polycarbonate-diol",
+      "mwGramsPerMol": 2000
+    },
+    "chainExtender": "BDO",
+    "hardSegmentWtPct": 33.4,
+    "predicted": {
+      "tgSoftC": -51.0,
+      "tgHardC": 108.0,
+      "elongationPct": 440,
+      "modulusMPa": 20.2,
+      "confidence": 0.65
+    },
+    "accessibilityScore": 0.68,
+    "carbamateSmarts": "[#6]-[NH]-C(=O)-O-[#6]",
+    "inSilico": true
+  },
+  {
+    "id": "fiber-009",
+    "isocyanate": {
+      "name": "HDI",
+      "type": "aliphatic",
+      "pubchemCid": 13242
+    },
+    "softSegment": {
+      "name": "Polycarbonate-diol",
+      "mwGramsPerMol": 2000
+    },
+    "chainExtender": "BDO",
+    "hardSegmentWtPct": 27.4,
+    "predicted": {
+      "tgSoftC": -53.0,
+      "tgHardC": 88.0,
+      "elongationPct": 510,
+      "modulusMPa": 10.1,
+      "confidence": 0.65
+    },
+    "accessibilityScore": 0.74,
+    "carbamateSmarts": "[#6]-[NH]-C(=O)-O-[#6]",
+    "inSilico": true
+  },
+  {
+    "id": "fiber-010",
+    "isocyanate": {
+      "name": "IPDI",
+      "type": "aliphatic",
+      "pubchemCid": 17394
+    },
+    "softSegment": {
+      "name": "Polycarbonate-diol",
+      "mwGramsPerMol": 2000
+    },
+    "chainExtender": "EDA",
+    "hardSegmentWtPct": 28.8,
+    "predicted": {
+      "tgSoftC": -51.0,
+      "tgHardC": 100.0,
+      "elongationPct": 460,
+      "modulusMPa": 13.8,
+      "confidence": 0.65
+    },
+    "accessibilityScore": 0.7,
+    "carbamateSmarts": "[#6]-[NH]-C(=O)-O-[#6]",
+    "inSilico": true
+  }
+]

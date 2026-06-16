@@ -60,11 +60,11 @@ const ITEMS: Item[] = [
       "Constraint-guided virtual screening over published monomers (aliphatic isocyanates only; cleavable bond in the amorphous soft segment; 25-35 wt% hard). Property predictions carry benchmark-referenced confidence. This is a designed candidate, not a spun fiber.",
   },
   {
-    name: "Engine B: De novo carbamate hydrolase",
+    name: "Engine B: Carbamate hydrolase (LigandMPNN redesign)",
     tier: "IN-SILICO",
     trl: "TRL 2",
     detail:
-      "RFdiffusion to LigandMPNN to Boltz-2 to PLACER to FoldSeek. The rendered structure is a reference serine-hydrolase scaffold, and the PLACER preorganization / FoldSeek numbers shown are illustrative expected-range values on the Lauko thresholds. Both stand in until the designed PDB lands from the GPU run. This is a design target, not an expressed protein.",
+      "The de-novo target (a no-prior-art carbamate hydrolase) needs a GPU run we deferred; the LigandMPNN-redesign fallback delivered three engineered hydrolases (redesigns of IsPETase / FAST-PETase / CalB scaffolds, TM ~0.8 to template) with REAL PLACER preorganization metrics on the Lauko thresholds. The viewer renders the CALB / 1TCA scaffold the lead design (enzyme-003) is built on; the designed coordinates are downloadable. In-silico, not an expressed protein.",
   },
   {
     name: "Wet-lab validation",
