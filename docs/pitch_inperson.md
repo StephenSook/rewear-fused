@@ -58,7 +58,7 @@ If it is the Cox table, go to (5).
 
 ## (5) The residency-ask close (Cox table only)
 
-> "You led a 150-million-dollar round to take majority ownership of Nexus Circular, turning hard-to-recycle plastic into virgin-equivalent feedstock. REWEAR-FUSED is that exact thesis, applied to textiles. Everything you've seen is real, in-silico, and honestly labeled, which is what separates a deep-tech bet from a pitch deck. Engine C, the compliance passport, is deployable into a Carter's pilot in year one. The molecular loop validates in year two.
+> "You led a 150-million-dollar round to take majority ownership of Nexus Circular, turning hard-to-recycle plastic into virgin-equivalent feedstock. REWEAR-FUSED is that exact thesis, applied to textiles. Everything you've seen is real, in-silico, and honestly labeled, which is what separates a deep-tech bet from a pitch deck. Engine C, the compliance passport, is deployable into a Carter's pilot in year one. The molecular loop validates in year two. And what is defensible is the matched pair itself, the fiber's carbamate microenvironment mapped to the enzyme's active site, as composition-of-matter plus method, not either molecule alone: that is what the provisional protects and what an incumbent would license, not a redesign or a screen on its own.
 >
 > So the ask is small and specific: ten thousand dollars and six weeks to wet-lab-validate the top matched fiber-enzyme pair, file a provisional patent, and pilot one Carter's SKU. That maps directly to what the residency wants, active progress toward IP and a minimum viable product ready for a pilot. We're the Nexus Circular of textiles, asking for the six weeks that turns the in-silico design into a filed provisional."
 

@@ -112,9 +112,9 @@ export interface EnzymeDesign {
     scRmsd: number;                  // < 2.0 A target
     uncertainty: number;             // +/- band on preorganizationFraction
   };
-  foldseekBestTM: number;           // < 0.5 = de novo fold
+  foldseekBestTM: number;           // de-novo target < 0.5; DELIVERED artifacts are LigandMPNN redesigns (TM ~0.8 to template), de-novo TM<0.5 is the deferred GPU swing
   foldseekBestHitPdb: string | null;
-  noveltyVerdict: string;           // "no close structural match in PDB (TM < 0.5)"
+  noveltyVerdict: string;           // delivered: "redesign-not-de-novo: ... TM ~0.8 to template" (a de-novo result would read "no close structural match in PDB (TM < 0.5)")
   pdbPath: string;                  // "pdb/enzyme-001.bcif"
   inSilico: true;
 }
