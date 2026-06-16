@@ -14,6 +14,12 @@ data/datasets/**        binary
 *.txt                   text eol=lf
 
 # Parquet and other binaries: never touch
+# NOTE: `data/artifacts/** text eol=lf` above would otherwise treat these binary
+# structure files as text and CRLF->LF normalize them, corrupting the bytes (a
+# .bcif/.cif with a 0x0D0A pair gets mangled). These binary rules come last so they win.
 *.parquet               binary
 *.cbm                   binary
 *.pdb                   binary
+*.bcif                  binary
+*.cif                   binary
+*.mmcif                 binary

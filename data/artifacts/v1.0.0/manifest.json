@@ -10,8 +10,8 @@
     },
     {
       "path": "compliance/regulations.json",
-      "sha256": "64f107ed64e823bb97452447577fe5d354965e0b7c5964ce3e8633d4d619fe5a",
-      "bytes": 1492,
+      "sha256": "b39e1851124f36311c22fb20754ddb6b1d609e27b51c335457f880d0417652c7",
+      "bytes": 1483,
       "producedBy": "input"
     },
     {
@@ -40,8 +40,8 @@
     },
     {
       "path": "garments.json",
-      "sha256": "400629cd1a80a0ab06d0d2c3a3656021b6582acba18a135fc6ca831590f8e0ea",
-      "bytes": 1287,
+      "sha256": "4968684574f98811df952507c2793695a80d96f53ccea3bfee3dcc97108fcf5e",
+      "bytes": 1252,
       "producedBy": "input"
     },
     {
@@ -58,20 +58,20 @@
     },
     {
       "path": "passports/dpp_carters-legging-blend.json",
-      "sha256": "3a0de090514eddc40539a73eacc39e81abdea755271fbcb5ea39b506bdbc5d6f",
-      "bytes": 1801,
+      "sha256": "2d9f47f75bcc9e359d83b319dd5ffe4f05554d39c8f0ed94047c60249e08dc09",
+      "bytes": 1745,
       "producedBy": "engine-c"
     },
     {
       "path": "passports/dpp_carters-rashguard-swim.json",
-      "sha256": "82c6bcbfd7c05c08047096758a4127e5b48ab4e9fa8f53817702a4c695a879cd",
-      "bytes": 2112,
+      "sha256": "9011b5883e5edea8356cf3d3be05d58c7b69082a2f79b1353868f6c2bdfa9bba",
+      "bytes": 2050,
       "producedBy": "engine-c"
     },
     {
       "path": "pdb/enzyme-001.bcif",
-      "sha256": "730f10a7598769463e81d2107b18953c967a826e0a7b53e7dfa11d31528076bd",
-      "bytes": 578829,
+      "sha256": "569110739770fc5b9010305d563c231299681fe60615952f9211271f7c1b44e9",
+      "bytes": 578823,
       "producedBy": "engine-b"
     },
     {
