@@ -35,12 +35,12 @@ def build(version: str = "v1.0.0") -> None:
     base = root / "data" / "artifacts" / version
     mpath = base / "manifest.json"
     existing = json.loads(mpath.read_text()) if mpath.exists() else {}
-    prev_pb = {f.get("path"): f.get("producedBy") for f in existing.get("files", [])}
+    prev_pb = {f.get("path", "").replace("\\", "/"): f.get("producedBy") for f in existing.get("files", [])}
 
     files = []
     for p in sorted(base.rglob("*")):
         if p.is_file() and p.name != "manifest.json":
-            rel = str(p.relative_to(base))
+            rel = str(p.relative_to(base)).replace("\\", "/")
             files.append({
                 "path": rel,
                 "sha256": hashlib.sha256(p.read_bytes()).hexdigest(),
@@ -56,6 +56,10 @@ def build(version: str = "v1.0.0") -> None:
     }
     if existing.get("issuer"):
         manifest["issuer"] = existing["issuer"]
+    if existing.get("recallCount") is not None:
+        manifest["recallCount"] = existing["recallCount"]
+    if existing.get("frozenParity"):
+        manifest["frozenParity"] = existing["frozenParity"]
     mpath.write_text(json.dumps(manifest, indent=2) + "\n")
     print(
         f"re-signed {len(files)} files "

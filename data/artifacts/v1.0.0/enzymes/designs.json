@@ -1,0 +1,59 @@
+[
+  {
+    "id": "enzyme-001",
+    "matchedFiberId": "fiber-001",
+    "catalyticTriad": "Ser-His-Asp",
+    "pHOptimum": [7.0, 8.0],
+    "placer": {
+      "preorganizationFraction": 0.71,
+      "plddt": 88.2,
+      "plddtActiveSite": 93.5,
+      "catalyticCaRmsd": 0.42,
+      "scRmsd": 1.35,
+      "uncertainty": 0.04
+    },
+    "foldseekBestTM": 0.82,
+    "foldseekBestHitPdb": "6EQE",
+    "noveltyVerdict": "redesign-not-de-novo: LigandMPNN redesign of IsPETase scaffold (6EQE) with Ser-His-Asp triad repositioned for carbamate hydrolysis at near-neutral pH. TM 0.82 to template.",
+    "pdbPath": "pdb/enzyme-001.bcif",
+    "inSilico": true
+  },
+  {
+    "id": "enzyme-002",
+    "matchedFiberId": "fiber-004",
+    "catalyticTriad": "Ser-His-Asp",
+    "pHOptimum": [7.0, 8.5],
+    "placer": {
+      "preorganizationFraction": 0.68,
+      "plddt": 85.7,
+      "plddtActiveSite": 91.8,
+      "catalyticCaRmsd": 0.58,
+      "scRmsd": 1.72,
+      "uncertainty": 0.05
+    },
+    "foldseekBestTM": 0.79,
+    "foldseekBestHitPdb": "7SH6",
+    "noveltyVerdict": "redesign-not-de-novo: LigandMPNN redesign of FAST-PETase scaffold (7SH6) with catalytic triad reoriented for urethane-bond selectivity on IPDI-based substrates. TM 0.79 to template.",
+    "pdbPath": "pdb/enzyme-002.bcif",
+    "inSilico": true
+  },
+  {
+    "id": "enzyme-003",
+    "matchedFiberId": "fiber-008",
+    "catalyticTriad": "Ser-His-Asp",
+    "pHOptimum": [7.0, 8.5],
+    "placer": {
+      "preorganizationFraction": 0.74,
+      "plddt": 90.1,
+      "plddtActiveSite": 95.2,
+      "catalyticCaRmsd": 0.38,
+      "scRmsd": 1.18,
+      "uncertainty": 0.03
+    },
+    "foldseekBestTM": 0.85,
+    "foldseekBestHitPdb": "1TCA",
+    "noveltyVerdict": "redesign-not-de-novo: LigandMPNN redesign of Candida antarctica lipase B scaffold (1TCA) leveraging alpha/beta-hydrolase fold for polycarbonate-diol carbamate cleavage. TM 0.85 to template.",
+    "pdbPath": "pdb/enzyme-003.bcif",
+    "inSilico": true
+  }
+]

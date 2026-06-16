@@ -1,0 +1,23 @@
+[
+  {
+    "fiberId": "fiber-001",
+    "enzymeId": "enzyme-001",
+    "enzyme_match": "PUase-HDI-v1 → PCL carbamate linkage",
+    "substrateSmiles": "CCCCCCNC(=O)OCCCCC(=O)O",
+    "narrative": "HDI/PCL-diol/BDO fiber paired with IsPETase-derived hydrolase. Near-neutral pH cleavage (7.0–8.0) recovers caprolactone monomers for closed-loop repolymerization, diverting textile waste from landfill."
+  },
+  {
+    "fiberId": "fiber-004",
+    "enzymeId": "enzyme-002",
+    "enzyme_match": "PUase-IPDI-v1 → PCL-urea carbamate linkage",
+    "substrateSmiles": "CC(C)(CC(NC(=O)OCCCCC(=O)O)C)CN",
+    "narrative": "IPDI/PCL-diol/EDA fiber paired with FAST-PETase-derived hydrolase. The urea-extended hard segment provides spandex-class elastic recovery while the PCL soft segment enables enzymatic monomer recovery at pH 7.0–8.5."
+  },
+  {
+    "fiberId": "fiber-008",
+    "enzymeId": "enzyme-003",
+    "enzyme_match": "PUase-H12MDI-v1 → polycarbonate carbamate linkage",
+    "substrateSmiles": "C1CCC(CC1)NC(=O)OC(=O)OCCCCCC",
+    "narrative": "H12MDI/polycarbonate-diol/BDO fiber paired with CalB-derived lipase. The polycarbonate soft segment provides hydrolytic stability in use but cleaves enzymatically under controlled conditions, recovering carbonate-diol monomers."
+  }
+]

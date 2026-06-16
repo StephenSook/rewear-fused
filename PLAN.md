@@ -31,10 +31,10 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked
 | 1.7 | VIEW 1 Story cold-open | frontend/src/app/page.tsx | Stephen | ✅ | 1.6 | scroll story + stat count-up |
 | 1.8 | Scroll shell (Lenis, loader, nav rail, sound) | frontend/src/components | Stephen | ✅ | - | global; loop regression-checked under Lenis |
 | 1.9 | Garment archetype thumbnails | frontend/public/archetypes | Stephen | ✅ | 1.3 | stills wired into the passport |
-| 2.1 | Engine B pipeline | backend/engine_b | Pravin | ⬜ | 0.4 | RFdiffusion -> ... -> FoldSeek |
-| 2.2 | Engine A screening | engine-a/ (RDKit) | Stephen→Pravin | 🟡 | 0.4 | RDKit reference impl (CPU-feasible); → Pravin to own/extend |
-| 2.3 | GPU pre-flight smoke | backend/scripts | Pravin | ⬜ | - | before molecular runs |
-| 2.4 | Artifact server + manifest | backend/api | Pravin | ⬜ | 2.1,2.2 | SHA-256 signed |
+| 2.1 | Engine B pipeline | backend/engine_b | Pravin | ✅ | 0.4 | LigandMPNN fallback (redesign-not-de-novo); 3 enzyme designs (6EQE/7SH6/1TCA templates), PLACER metrics in Lauko range, --strict clean |
+| 2.2 | Engine A screening | engine-a/ (RDKit) | Stephen→Pravin | ✅ | 0.4 | 10 fiber candidates (3 isocyanates × 2 soft segments × 2 CEs), 612→487→23→10 funnel, trade-off curve (15 pts), all pass design window |
+| 2.3 | GPU pre-flight smoke | backend/scripts | Pravin | ⬜ | - | N/A for hackathon: used LigandMPNN fallback, no GPU spend. Deferred to post-hackathon. |
+| 2.4 | Artifact server + manifest | backend/api | Pravin | ✅ | 2.1,2.2 | manifest.json re-signed with 14 files (SHA-256), recallCount + frozenParity preserved; --strict CONFORMANT 0 errors 0 warnings |
 | 3.1 | Engine C data ETL | engine-c/ingest | Stephen→Vinh | ✅ | 0.4 | 631 real CPSC recalls ingested + labeled; → Vinh to extend (Safety Gate, PFAS) |
 | 3.2 | Compliance classifier | engine-c/classifier | Stephen→Vinh | ✅ | 3.1 | deterministic rules + per-label CatBoost, honest CV PR-AUC; tests pass; → Vinh |
 | 3.3 | Passport (VC + GS1 + QR) | engine-c/passport | Stephen→Vinh | ✅ | 3.2 | W3C VC 2.0 + Ed25519 (did:key) + GS1 Digital Link; clear/lab-test/divert; → Vinh |
