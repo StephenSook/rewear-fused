@@ -228,12 +228,17 @@ function RegulatoryRouter({
   );
 }
 
-export function PassportExplorer() {
+export function PassportExplorer({ initialGarmentId }: { initialGarmentId?: string }) {
   const garments = getGarments();
-  // open on the legging (the elastane story), falling back safely if the bundle changes
-  const [selectedId, setSelectedId] = useState(
-    () => garments.find((g) => g.archetype === "legging")?.id ?? garments[0]?.id ?? "",
-  );
+  // Open on the deep-linked garment if a scanned passport QR resolved to
+  // /passport?g=<id> (the server page passes it through); otherwise the legging
+  // (the elastane story), falling back safely if the bundle changes.
+  const [selectedId, setSelectedId] = useState(() => {
+    if (initialGarmentId && garments.some((g) => g.id === initialGarmentId)) {
+      return initialGarmentId;
+    }
+    return garments.find((g) => g.archetype === "legging")?.id ?? garments[0]?.id ?? "";
+  });
   const garment = garments.find((g) => g.id === selectedId);
   const { classification, passport, source } = useEngineC(selectedId);
 

@@ -8,7 +8,12 @@ export const metadata = {
   title: "Digital Recyclability Passport · REWEAR-FUSED",
 };
 
-export default function PassportPage() {
+export default async function PassportPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ g?: string }>;
+}) {
+  const { g } = await searchParams;
   return (
     <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-16">
       <Link
@@ -33,7 +38,7 @@ export default function PassportPage() {
         </header>
       </Reveal>
 
-      <PassportExplorer />
+      <PassportExplorer initialGarmentId={g} />
     </main>
   );
 }

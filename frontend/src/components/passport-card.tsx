@@ -1,6 +1,7 @@
 import { QRCodeSVG } from "qrcode.react";
 import { CheckCircle } from "@phosphor-icons/react/dist/ssr";
 import { BeveledBox, MonoLabel, DecisionBadge, InSilicoBadge } from "./instrument";
+import { qrTargetFor } from "@/lib/gs1";
 import type { Garment, DigitalProductPassport } from "@/lib/types";
 
 /** The Digital Recyclability Passport card. The judge physically scans the QR. */
@@ -60,7 +61,7 @@ export function PassportCard({
             <span aria-hidden className="pointer-events-none absolute -bottom-px -left-px h-2.5 w-2.5 border-b border-l border-accent-bio" />
             <span aria-hidden className="pointer-events-none absolute -bottom-px -right-px h-2.5 w-2.5 border-b border-r border-accent-bio" />
             <div className="bg-white p-2">
-              <QRCodeSVG value={passport.qrPayload} size={104} level="M" />
+              <QRCodeSVG value={qrTargetFor(passport)} size={104} level="M" />
             </div>
           </div>
           <MonoLabel className="text-[0.6rem]">GS1 Digital Link · scan it</MonoLabel>

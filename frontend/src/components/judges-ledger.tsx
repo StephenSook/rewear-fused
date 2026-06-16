@@ -43,7 +43,7 @@ const ITEMS: Item[] = [
     name: "The application (5 views)",
     tier: "WIRED LIVE",
     detail:
-      "Deployed on Vercel, reading the signed artifact bundle through real rendering code. Mol* renders a real PDB; the passport QR resolves to a real GS1 URI. No hardcoded backend, no faked screens.",
+      "Deployed on Vercel, reading the signed artifact bundle through real rendering code. Mol* renders a real PDB; the passport QR is a GS1 Digital Link that resolves through our own resolver to the live passport. No hardcoded backend, no faked screens.",
     proof: { href: "/enzyme", label: "See the live Mol* structure" },
   },
   {
