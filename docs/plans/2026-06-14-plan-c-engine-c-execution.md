@@ -72,6 +72,11 @@ What is actually in this repo right now, confirmed by reading the code:
 > - **Freeze is real:** no uncommitted Engine C artifact/code changes (disk == HEAD), `frozenParity` anchor = `bb95f4e8…` (identical to C1 record + the live Render endpoint), `modelVersions.engineC = catboost-text-v1.0`. The local bundle, the committed bundle, and the deployed bundle are one consistent frozen state. **No model retrains after this point.**
 > - **⚠️ Cross-lane caveat (honest):** `validate_artifacts.py --strict` is NON-CONFORMANT project-wide — **5 errors, ALL Pravin's Engine A/B** (fibers/candidates, fibers/screening, fibers/tradeoffCurve, enzymes/designs, pairs/topPairs — "not yet produced"). **Zero Engine C errors.** A full project `--strict` green is therefore blocked on Pravin, NOT on this lane. This does not gate Vinh's remaining work (C6 pitch pack has no code/data dep). Worth a heads-up to Pravin that A/B artifacts are the only thing left for a clean team-wide G3 `--strict`.
 
+> **✅ C6 COMPLETE — Jun 15.** `docs/pitch_engine_c.md` written — the residency-judge half, assembled (not invented) from `vinh_handoff §7`.
+> - Sections: one-line frame + TRL framing; credibility floor (real data + PR-AUC); techno-econ (CO₂e, abatement, enzyme-cost, the Uekert honesty check) with **best/expected/worst bands**; SB707/Refashion/EPR fee angle + DPP market + Cox "Nexus for stretch textiles" framing; IP/FTO three-layer moat + the $60–$130 provisional path + the "defensively publish Engine C, don't patent" posture; judge-defense one-liners; a sourcing/caveat ledger.
+> - **Honesty pass caught a real trap:** the draft cited per-label PR-AUC (0.990/0.960/0.246) but the **passport/`classifications.json` shows the MACRO average `prAuc=0.732`, `auc=0.951`** (`build.py:95`). Re-ran `classifier.model.train()` to confirm the live numbers, then rewrote §1 to lead with 0.732-as-the-passport-number and decompose into the per-label table — so the "deck says 0.99 but artifact says 0.732" gap is pre-explained. Every secondary/by-analogy figure keeps its caveat inline (the moat). No invented numbers.
+> - **All Core (C0–C6) for Engine C is now DONE.** Open items are other lanes' actions: C4 awaits Stephen's Vercel set; team-wide `--strict` awaits Pravin's A/B. Remaining for Vinh = G4 packaging (Jun 16) + optional stretch (C7–C10).
+
 ---                                                                                 
 
 ## 1. Phase table (PLAN.md status: 3.4 is the live one)
@@ -86,7 +91,7 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked · ✂️
 | C3 | Keepalive cron live (secret + URL) | **Core** | `.github/workflows/keepalive.yml` | ✅ | C2 | **critical path — DONE Jun 15 (manual-warm caveat)** |
 | C4 | Wire frontend env → live endpoint (hand to Stephen) | **Core** | (Stephen's 4.1) | 🟡 | C2 | **Vinh's half DONE Jun 15 (URL handed off); awaiting Stephen's Vercel set + redeploy** |
 | C5 | G3 artifact-freeze: validate + freeze + zero placeholders | **Core** | `scripts/validate_artifacts.py` | ✅ | C1 | **gate — Engine C FROZEN Jun 15; full `--strict` blocked on Pravin's A/B (not this lane)** |
-| C6 | Pitch pack: techno-econ + SB707/EPR + IP/FTO one-pager | **Core** (residency) | `docs/pitch_engine_c.md` | ⬜ | — | parallel, no code dep |
+| C6 | Pitch pack: techno-econ + SB707/EPR + IP/FTO one-pager | **Core** (residency) | `docs/pitch_engine_c.md` | ✅ | — | **DONE Jun 15 — drafted from vinh_handoff §7, real numbers verified** |
 | C7 | Rule corpus → expand toward 85+ thresholds | Stretch | `rules.py`, `regulations.json` | ⬜ | C0 | depth |
 | C8 | EU Safety Gate ingest (2nd real positive source) | Stretch | `ingest/safetygate.py` | ⬜ | C0 | depth |
 | C9 | Real SHAP `TreeExplainer` (replace `compositionDrivers` stub) | Stretch | `model.py`, `build.py` | ⬜ | C0 | depth |
@@ -160,8 +165,8 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked · ✂️
 - [ ] Deployed golden-path green in **incognito**
 - [ ] Passport QR physically scans on the deployed site → resolves
 - [ ] Endpoint warm at demo time (keepalive)
-- [ ] Pitch pack (§7) one-pager ready for residency Q&A
-- [ ] PR-AUC numbers on the passport are the REAL achieved values
+- [x] Pitch pack (§7) one-pager ready for residency Q&A — **C6 DONE Jun 15** (`docs/pitch_engine_c.md`)
+- [x] PR-AUC numbers on the passport are the REAL achieved values — **verified Jun 15:** per-label 0.990/0.960/0.246, macro 0.732 (`classifications.json`); re-confirmed via `model.train()`
 - [ ] Nothing committed to the public repo after 11:59pm (June 17 is present-only)
 
 ---
