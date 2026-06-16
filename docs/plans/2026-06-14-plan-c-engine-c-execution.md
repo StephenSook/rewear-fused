@@ -66,6 +66,12 @@ What is actually in this repo right now, confirmed by reading the code:
 > - Demo-safety confirmed in his client: unset/slow/down/wrong-shape → falls back to the signed static bundle (`source: "cached"`) within 2.5s. So C3's warm-frequency caveat (and an un-set env) does not endanger his page; it only governs whether the "live" badge fires.
 > - **Critical path is green through C3; C4 is handed off and pending Stephen. Remaining Core: C5 (G3 freeze gate, EOD Jun 15) + C6 (pitch pack, no code dep).**
 
+> **✅ C5 — Engine C FROZEN + conformant Jun 15 (G3 gate, this lane).** Verified, not assumed:
+> - **Non-strict validation: `conformant`, exit 0.** Every Engine C artifact passes — garments, regulations, classifications, all 3 passports, manifest — including locked scientific constraints (aliphatic/`aromaticAmineRelease: NONE`, `TRL 2-3`, GS1 link, signed `credential.proof`), enum checks, **manifest SHA-256 parity**, and **reverse-coverage** (no unsigned artifact present).
+> - **Zero `placeholder:true` anywhere** in `data/artifacts/v1.0.0/` (grep-confirmed) — the G3 hard requirement.
+> - **Freeze is real:** no uncommitted Engine C artifact/code changes (disk == HEAD), `frozenParity` anchor = `bb95f4e8…` (identical to C1 record + the live Render endpoint), `modelVersions.engineC = catboost-text-v1.0`. The local bundle, the committed bundle, and the deployed bundle are one consistent frozen state. **No model retrains after this point.**
+> - **⚠️ Cross-lane caveat (honest):** `validate_artifacts.py --strict` is NON-CONFORMANT project-wide — **5 errors, ALL Pravin's Engine A/B** (fibers/candidates, fibers/screening, fibers/tradeoffCurve, enzymes/designs, pairs/topPairs — "not yet produced"). **Zero Engine C errors.** A full project `--strict` green is therefore blocked on Pravin, NOT on this lane. This does not gate Vinh's remaining work (C6 pitch pack has no code/data dep). Worth a heads-up to Pravin that A/B artifacts are the only thing left for a clean team-wide G3 `--strict`.
+
 ---                                                                                 
 
 ## 1. Phase table (PLAN.md status: 3.4 is the live one)
@@ -79,7 +85,7 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked · ✂️
 | C2 | Deploy to Render + smoke the 3 endpoints | **Core** | `render.yaml`, Render dashboard | ✅ | C1 | **convergence point — DONE Jun 15** |
 | C3 | Keepalive cron live (secret + URL) | **Core** | `.github/workflows/keepalive.yml` | ✅ | C2 | **critical path — DONE Jun 15 (manual-warm caveat)** |
 | C4 | Wire frontend env → live endpoint (hand to Stephen) | **Core** | (Stephen's 4.1) | 🟡 | C2 | **Vinh's half DONE Jun 15 (URL handed off); awaiting Stephen's Vercel set + redeploy** |
-| C5 | G3 artifact-freeze: validate + freeze + zero placeholders | **Core** | `scripts/validate_artifacts.py` | ⬜ | C1 | **gate** |
+| C5 | G3 artifact-freeze: validate + freeze + zero placeholders | **Core** | `scripts/validate_artifacts.py` | ✅ | C1 | **gate — Engine C FROZEN Jun 15; full `--strict` blocked on Pravin's A/B (not this lane)** |
 | C6 | Pitch pack: techno-econ + SB707/EPR + IP/FTO one-pager | **Core** (residency) | `docs/pitch_engine_c.md` | ⬜ | — | parallel, no code dep |
 | C7 | Rule corpus → expand toward 85+ thresholds | Stretch | `rules.py`, `regulations.json` | ⬜ | C0 | depth |
 | C8 | EU Safety Gate ingest (2nd real positive source) | Stretch | `ingest/safetygate.py` | ⬜ | C0 | depth |
@@ -143,12 +149,12 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked · ✂️
 **G3 — artifact-freeze (June 15 EOD, hard):**
 - [x] `python -m ingest.cpsc` rebuilt the real corpus (real public data) — **631 real CPSC recalls, live API, Jun 15**
 - [x] `python -m classifier.build` emits real classifications, **zero `"placeholder": true`** — verified clean
-- [x] `validate_artifacts.py --strict` green for Engine C (shapes + locked constraints + manifest SHA parity) — *remaining `--strict` failures are Pravin's A/B artifacts, not this lane; CI non-strict contract job is **green***
+- [x] `validate_artifacts.py --strict` green for Engine C (shapes + locked constraints + manifest SHA parity + reverse-coverage) — **C5 verified Jun 15: non-strict `conformant`/exit 0, zero placeholders.** *The 5 `--strict` errors are ALL Pravin's A/B (fibers/enzymes/pairs, not produced) — zero Engine C errors; full team-wide `--strict` green is blocked on Pravin.*
 - [x] Frozen-model parity: output SHA in manifest (`frozenParity` anchor); endpoint verifies served `classifications.json` on startup + refuses to boot on mismatch (`model_sha_ok` on `/healthz`) — **C1 DONE Jun 15** (output-parity per §4; 13 tests green)
 - [x] Render endpoint deployed; `/healthz`, `/classify/{id}`, `/passport/{id}` all 200 — **C2 DONE Jun 15** (`https://rewear-engine-c.onrender.com`, off-box smoke green)
 - [x] Keepalive cron live + green (endpoint stays warm) — **C3 DONE Jun 15**; green run confirmed. *Caveat: GH throttles the cron to hours, not `*/10` → manually warm `/healthz` ~2 min pre-demo (endpoint is credibility, not a demo dependency)*
 - [x] Stephen has the Render URL for Vercel env (4.1) — **handed off Jun 15** (`NEXT_PUBLIC_ENGINE_C_API_URL = https://rewear-engine-c.onrender.com`, bare host). 🟡 *Stephen still needs to SET it in Vercel + redeploy — Vinh has no Vercel access; not verified here.*
-- [ ] **Model frozen — no retrains after this point**
+- [x] **Model frozen — no retrains after this point** — **C5 Jun 15:** Engine C bundle SHA-stable (`bb95f4e8…`), committed, == live endpoint. Freeze holds.
 
 **G4 — submit (June 16 11:59pm, HARD):**
 - [ ] Deployed golden-path green in **incognito**
