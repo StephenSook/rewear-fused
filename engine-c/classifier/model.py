@@ -107,6 +107,14 @@ class ComplianceModel:
             out[label] = float(lm.model.predict_proba(pool)[0, 1])
         return out
 
+    def recall_count(self) -> int:
+        """The real number of CPSC recalls the model trained on (every LabelModel
+        carries the same corpus size n). Falls back to re-counting the corpus if no
+        label trained, so the manifest's recallCount is never fabricated."""
+        if self.labels:
+            return next(iter(self.labels.values())).n
+        return len(load_corpus())
+
     def pr_auc(self, label: str) -> float:
         return self.labels[label].pr_auc if label in self.labels else float("nan")
 

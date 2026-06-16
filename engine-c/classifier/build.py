@@ -217,6 +217,10 @@ def main() -> int:
         "generatedAt": "2026-06-14T20:00:00Z",
         "files": files,
         "modelVersions": {"engineC": MODEL_VERSION},
+        # Real CPSC recall count the model trained on — lets a judge verify the
+        # "trained on N real CPSC recalls" claim against this signed manifest.
+        # Emitted from the corpus the model actually saw, never hardcoded.
+        "recallCount": cm.recall_count(),
         "frozenParity": {
             "kind": "output",
             "path": parity["path"],

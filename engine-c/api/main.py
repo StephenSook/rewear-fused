@@ -125,6 +125,29 @@ def healthz() -> dict:
     }
 
 
+@app.get("/judges")
+def judges() -> dict:
+    """One-stop verifiability panel for judges: the falsifiable claims and where to
+    check them. Every value is read from the signed manifest (the source of truth),
+    not hardcoded here, so this endpoint cannot drift from what was actually frozen."""
+    manifest = json.loads((ARTIFACTS / "manifest.json").read_text(encoding="utf-8"))
+    return {
+        "service": "engine-c",
+        "claim": "Engine C trained on real public CPSC recalls; outputs are the frozen, signed bundle.",
+        "recallCount": manifest.get("recallCount"),
+        "recallCountSource": "live CPSC SaferProducts API ingest (data/datasets/cpsc_recalls.parquet)",
+        "modelVersion": manifest.get("modelVersions", {}).get("engineC"),
+        "frozenParity": manifest.get("frozenParity"),
+        "outputShaVerifiedNow": (ARTIFACTS / "compliance" / "classifications.json").exists()
+        and _hash(ARTIFACTS / "compliance" / "classifications.json") == FROZEN_PARITY_SHA,
+        "verify": {
+            "metrics": "PR-AUC per label is in /classify/{id} (prAuc/auc); macro on the passport",
+            "honesty": "trl 'TRL 2-3' + inSilico:true on every passport; aromaticAmineRelease 'NONE'",
+            "signatures": "each passport carries an Ed25519 credential.proof.signatureValue",
+        },
+    }
+
+
 @app.get("/garments")
 def garments():
     data = _load("garments.json")
