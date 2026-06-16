@@ -50,6 +50,21 @@ What is actually in this repo right now, confirmed by reading the code:
 > - **Contract:** added optional `frozenParity` to the `Manifest` interface in `data/contract.md` AND `frontend/src/lib/types.ts`. Additive, manifest-level only — does NOT touch passport/classification shapes, so per §7 not a `⚠️ CONTRACT` event. **Heads-up to Stephen:** `types.ts` Manifest gained an optional `frozenParity?` field (no action needed; nothing he reads breaks).
 > - Validator `--strict` still clean for Engine C (only Pravin's A/B failures remain). Line endings renormalized to LF on all rebuilt artifacts (the C0 CRLF landmine — re-checked, anchor is LF on both index + worktree).
 
+> **✅ C2 COMPLETE — Jun 15.** Render endpoint live + smoke-verified, the convergence point reached.
+> - **Live URL:** `https://rewear-engine-c.onrender.com` (Blueprint off `StephenSook/rewear-fused` `main`, free plan, `autoDeploy: true`). Smoke-verified from off-box: `/healthz` 200 (`output_sha_ok: true`, `frozen_parity_sha: bb95f4e8…`), `/classify/carters-legging-blend` 200, `/passport/carters-legging-blend` 200, bad id → 404.
+> - **The real deploy risk was found + killed.** `render.yaml`'s buildCommand installed the full ML/chem stack (rdkit, catboost, pandas, pyarrow, scikit-learn) — but the API runtime imports *none* of them (pure FastAPI + stdlib; it serves the pre-built signed bundle, never trains/scores). On the free plan those heavy wheels are the most likely build-timeout/OOM. Split runtime deps into `engine-c/requirements-api.txt` (fastapi+uvicorn only) and pointed `render.yaml` at it. Proven in a clean venv: install → uvicorn boots → all endpoints 200, gate green. Build went green in ~1 min. (Committed `41cea11`; added `*.txt eol=lf` to `.gitattributes` so the Linux build reads the same bytes we test.)
+> - **The CRLF/parity landmine is now proven dead cross-OS.** The C0/C1 fear was artifacts getting CRLF on a Linux checkout → SHA mismatch → `FrozenModelMismatch` → refuse-to-boot. The live Linux host hashed every artifact and matched byte-for-byte (`bb95f4e8…`, identical to local + the C1 record). The frozen-parity gate passing *on Render* is the strongest evidence the freeze is reproducible.
+> - **Process note:** a fork (`vinhbin/rewear-fused-C2test`) was used first as a zero-stakes dry run, verified green, then torn down (fork + its Render service deleted). The real deploy is off the team repo.
+
+> **✅ C3 COMPLETE — Jun 15 (with one honest caveat).** Keepalive wired + green.
+> - Repo secret `KEEPALIVE_TARGET_URL = https://rewear-engine-c.onrender.com/healthz` set; `keepalive.yml` (already committed) pings it. **Confirmed a post-secret run is GREEN** (`health: 200`); independently replicated the exact workflow curl off-box → 200, so the pass is real, not assumed.
+> - **⚠️ Caveat (logged honestly, not papered over):** GitHub throttles the `*/10` schedule hard on a low-activity free repo — observed runs are *hours* apart, not 10 min. That is too infrequent to keep a free Render instance warm (~15 min spin-down). **Decision: accept it + manually warm `/healthz` ~2 min before any demo.** Rationale: the endpoint is a credibility proof, NOT a demo runtime dependency (frontend reads static artifacts per §6.4; `engine-c-client.ts` falls back to the signed bundle within a 2.5s timeout). A cold start costs the "live" badge, not the demo. *(Stretch hardening if time: a 2nd external pinger e.g. UptimeRobot/cron-job.org at 5-min — not critical path.)*
+
+> **✅ C4 COMPLETE — Jun 15.** Live URL handed to Stephen for his Vercel env (his 4.1).
+> - Value (verified against `frontend/src/lib/engine-c-client.ts:15`): `NEXT_PUBLIC_ENGINE_C_API_URL = https://rewear-engine-c.onrender.com` — **bare host, no path/trailing slash** (the client appends `/classify/{id}` + `/passport/{id}` itself; a path here would 404 → silent cached fallback). No contract/shape change, so not a `⚠️ CONTRACT` event.
+> - Demo-safety confirmed in his client: unset/slow/down/wrong-shape → falls back to the signed static bundle (`source: "cached"`) within 2.5s. So C3's warm-frequency caveat does not endanger his page; it only governs whether the "live" badge fires.
+> - **Critical path is now green through C4. Remaining Core: C5 (G3 freeze gate, EOD Jun 15) + C6 (pitch pack, no code dep).**
+
 ---                                                                                 
 
 ## 1. Phase table (PLAN.md status: 3.4 is the live one)
@@ -60,9 +75,9 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked · ✂️
 |---|-------|------|-------|--------|------|------|
 | C0 | Re-ingest CPSC corpus + green local build | **Core** | `ingest/`, `data/datasets/` | ✅ | — | **the unblocker — DONE Jun 15** |
 | C1 | Frozen-model parity: SHA verify on startup | **Core** | `api/main.py`, `classifier/build.py` | ✅ | C0 | **critical path — DONE Jun 15** |
-| C2 | Deploy to Render + smoke the 3 endpoints | **Core** | `render.yaml`, Render dashboard | ⬜ | C1 | **convergence point** |
-| C3 | Keepalive cron live (secret + URL) | **Core** | `.github/workflows/keepalive.yml` | ⬜ | C2 | critical path |
-| C4 | Wire frontend env → live endpoint (hand to Stephen) | **Core** | (Stephen's 4.1) | ⬜ | C2 | convergence |
+| C2 | Deploy to Render + smoke the 3 endpoints | **Core** | `render.yaml`, Render dashboard | ✅ | C1 | **convergence point — DONE Jun 15** |
+| C3 | Keepalive cron live (secret + URL) | **Core** | `.github/workflows/keepalive.yml` | ✅ | C2 | **critical path — DONE Jun 15 (manual-warm caveat)** |
+| C4 | Wire frontend env → live endpoint (hand to Stephen) | **Core** | (Stephen's 4.1) | ✅ | C2 | **convergence — URL handed to Stephen Jun 15** |
 | C5 | G3 artifact-freeze: validate + freeze + zero placeholders | **Core** | `scripts/validate_artifacts.py` | ⬜ | C1 | **gate** |
 | C6 | Pitch pack: techno-econ + SB707/EPR + IP/FTO one-pager | **Core** (residency) | `docs/pitch_engine_c.md` | ⬜ | — | parallel, no code dep |
 | C7 | Rule corpus → expand toward 85+ thresholds | Stretch | `rules.py`, `regulations.json` | ⬜ | C0 | depth |
@@ -129,9 +144,9 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked · ✂️
 - [x] `python -m classifier.build` emits real classifications, **zero `"placeholder": true`** — verified clean
 - [x] `validate_artifacts.py --strict` green for Engine C (shapes + locked constraints + manifest SHA parity) — *remaining `--strict` failures are Pravin's A/B artifacts, not this lane; CI non-strict contract job is **green***
 - [x] Frozen-model parity: output SHA in manifest (`frozenParity` anchor); endpoint verifies served `classifications.json` on startup + refuses to boot on mismatch (`model_sha_ok` on `/healthz`) — **C1 DONE Jun 15** (output-parity per §4; 13 tests green)
-- [ ] Render endpoint deployed; `/healthz`, `/classify/{id}`, `/passport/{id}` all 200
-- [ ] Keepalive cron live + green (endpoint stays warm)
-- [ ] Stephen has the Render URL for Vercel env (4.1)
+- [x] Render endpoint deployed; `/healthz`, `/classify/{id}`, `/passport/{id}` all 200 — **C2 DONE Jun 15** (`https://rewear-engine-c.onrender.com`, off-box smoke green)
+- [x] Keepalive cron live + green (endpoint stays warm) — **C3 DONE Jun 15**; green run confirmed. *Caveat: GH throttles the cron to hours, not `*/10` → manually warm `/healthz` ~2 min pre-demo (endpoint is credibility, not a demo dependency)*
+- [x] Stephen has the Render URL for Vercel env (4.1) — **C4 DONE Jun 15** (`NEXT_PUBLIC_ENGINE_C_API_URL = https://rewear-engine-c.onrender.com`, bare host)
 - [ ] **Model frozen — no retrains after this point**
 
 **G4 — submit (June 16 11:59pm, HARD):**
