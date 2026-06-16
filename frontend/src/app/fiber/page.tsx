@@ -79,7 +79,7 @@ export default function FiberPage() {
                 <Spec label="chain extender" value={c.chainExtender} />
                 <Spec label="hard segment" value={`${c.hardSegmentWtPct} wt%`} ok window="25-35" />
                 <Spec label="Tg soft" value={`${c.predicted.tgSoftC} °C`} ok={c.predicted.tgSoftC < -50} window="< -50" />
-                <Spec label="Tg hard" value={`${c.predicted.tgHardC} °C`} ok={c.predicted.tgHardC > 150} window="> 150" />
+                <Spec label="Tg hard" value={`${c.predicted.tgHardC} °C`} window="hard domain" />
                 <Spec label="elongation" value={`${c.predicted.elongationPct}%`} ok={c.predicted.elongationPct >= 400} window=">= 400" />
                 <Spec label="accessibility" value={c.accessibilityScore.toFixed(2)} />
               </div>

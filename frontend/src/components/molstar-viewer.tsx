@@ -172,7 +172,10 @@ export default function MolstarViewer({
       plugin.canvas3d?.requestCameraReset();
 
       if (!disposed) setStatus("ready");
-    })().catch(() => {
+    })().catch((err) => {
+      if (process.env.NODE_ENV !== "production") {
+        console.error("[molstar] viewer init failed", err);
+      }
       if (!disposed) setStatus("error");
     });
 

@@ -24,18 +24,31 @@ function warnDev(msg: string, detail: unknown): void {
   if (process.env.NODE_ENV !== "production") console.warn(msg, detail);
 }
 
+// Guards check the fields the UI actually dereferences (probability/prAuc/auc in
+// the router; gs1DigitalLinkUri/qrPayload in the passport card), so a malformed
+// live response is rejected and we fall back to the byte-identical signed bundle
+// rather than rendering NaN/undefined under a "live" badge.
 function isClassification(x: unknown): x is Classification {
+  if (!x || typeof x !== "object") return false;
+  const c = x as Record<string, unknown>;
   return (
-    !!x &&
-    typeof x === "object" &&
-    "decision" in x &&
-    "garmentId" in x &&
-    "triggeredRegulations" in x
+    typeof c.decision === "string" &&
+    typeof c.garmentId === "string" &&
+    typeof c.probability === "number" &&
+    typeof c.prAuc === "number" &&
+    typeof c.auc === "number" &&
+    Array.isArray(c.triggeredRegulations)
   );
 }
 
 function isPassport(x: unknown): x is DigitalProductPassport {
-  return !!x && typeof x === "object" && "gs1DigitalLinkUri" in x && "classification" in x;
+  if (!x || typeof x !== "object") return false;
+  const p = x as Record<string, unknown>;
+  return (
+    typeof p.gs1DigitalLinkUri === "string" &&
+    typeof p.qrPayload === "string" &&
+    isClassification(p.classification)
+  );
 }
 
 async function getJSON(path: string): Promise<unknown> {
