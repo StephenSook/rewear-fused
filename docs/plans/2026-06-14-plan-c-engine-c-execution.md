@@ -92,10 +92,10 @@ Legend: ✅ done · 🟡 in progress · ⬜ not started · ⛔ blocked · ✂️
 | C4 | Wire frontend env → live endpoint (hand to Stephen) | **Core** | (Stephen's 4.1) | 🟡 | C2 | **Vinh's half DONE Jun 15 (URL handed off); awaiting Stephen's Vercel set + redeploy** |
 | C5 | G3 artifact-freeze: validate + freeze + zero placeholders | **Core** | `scripts/validate_artifacts.py` | ✅ | C1 | **gate — Engine C FROZEN Jun 15; full `--strict` blocked on Pravin's A/B (not this lane)** |
 | C6 | Pitch pack: techno-econ + SB707/EPR + IP/FTO one-pager | **Core** (residency) | `docs/pitch_engine_c.md` | ✅ | — | **DONE Jun 15 — drafted from vinh_handoff §7, real numbers verified** |
-| C7 | Rule corpus → expand toward 85+ thresholds | Stretch | `rules.py`, `regulations.json` | ⬜ | C0 | depth |
-| C8 | EU Safety Gate ingest (2nd real positive source) | Stretch | `ingest/safetygate.py` | ⬜ | C0 | depth |
-| C9 | Real SHAP `TreeExplainer` (replace `compositionDrivers` stub) | Stretch | `model.py`, `build.py` | ⬜ | C0 | depth |
-| C10 | Isotonic calibration on held-out fold | Stretch | `model.py` | ⬜ | C0 | depth |
+| C7 | Rule corpus → expand toward 85+ thresholds | Stretch | `rules.py`, `regulations.json` | ✂️ | C0 | **CUT Jun 15** — reopens C5 freeze; low demo gain on 3 garments (`decision-log.md`) |
+| C8 | EU Safety Gate ingest (2nd real positive source) | Stretch | `ingest/safetygate.py` | ✂️ | C0 | **CUT Jun 15** — forces re-freeze/re-deploy |
+| C9 | Real SHAP `TreeExplainer` (replace `compositionDrivers` stub) | Stretch | `model.py`, `build.py` | ✂️ | C0 | **CUT Jun 15** — retrains model, forces re-freeze |
+| C10 | Isotonic calibration on held-out fold | Stretch | `model.py` | ✂️ | C0 | **CUT Jun 15** — retrains model, forces re-freeze |
 
 **Core = ship-blockers (C0–C6). Stretch = C7–C10, cut without ceremony if any Core phase is behind.**
 
