@@ -202,7 +202,7 @@ export function LoopExperience() {
               the enzyme that closes its loop.
             </p>
             <p className="mt-3 font-display text-2xl text-fg-muted sm:text-4xl">
-              Neither has any prior art.
+              No one has co-designed both, together, for textiles before.
             </p>
 
             <div className="mt-12 grid gap-4 sm:grid-cols-3">

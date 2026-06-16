@@ -255,7 +255,7 @@ export function StoryExperience() {
           }
         >
           <p className="max-w-3xl font-display text-4xl leading-tight sm:text-6xl">
-            Neither the molecule nor the enzyme has any prior art.
+            No one has co-designed a cleavable fiber and its matched enzyme, together, for textiles.
           </p>
           <div className="mt-10">
             <BeveledButton href="/loop" accent="bio">
