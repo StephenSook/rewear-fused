@@ -2,6 +2,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { CheckCircle } from "@phosphor-icons/react/dist/ssr";
 import { BeveledBox, MonoLabel, DecisionBadge, InSilicoBadge } from "./instrument";
 import { qrTargetFor } from "@/lib/gs1";
+import { CredentialVerify } from "./credential-verify";
 import type { Garment, DigitalProductPassport } from "@/lib/types";
 
 /** The Digital Recyclability Passport card. The judge physically scans the QR. */
@@ -74,6 +75,8 @@ export function PassportCard({
         </span>
         <InSilicoBadge />
       </div>
+
+      <CredentialVerify passport={passport} garmentName={garment.name} />
     </BeveledBox>
   );
 }
