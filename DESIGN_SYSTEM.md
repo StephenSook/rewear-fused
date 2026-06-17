@@ -1,4 +1,4 @@
-# DESIGN_SYSTEM.md — REWEAR-FUSED visual identity (locked)
+# DESIGN_SYSTEM.md, REWEAR-FUSED visual identity (locked)
 
 Aesthetic: **molecular laboratory instrument meets editorial science journal.** Dark, deep, atmospheric. Molecules glow against depth. The precision of a cryo-EM viewer crossed with the typographic confidence of a high-end science publication. Restyle every primitive; never ship a stock component. Reskin by changing tokens, never component code.
 

@@ -127,7 +127,7 @@ Nodes (5): cn(), BeveledBox(), InstrumentButton(), Tilt3D(), usePointerTilt()
 
 ### Community 7 - "Community 7"
 Cohesion: 0.26
-Nodes (9): _categorize(), fetch(), _fetch_term(), _flatten(), main(), _out_path(), CPSC Recalls ETL — real public data, no synthetic rows.  Pulls children's-appare, summarize() (+1 more)
+Nodes (9): _categorize(), fetch(), _fetch_term(), _flatten(), main(), _out_path(), CPSC Recalls ETL, real public data, no synthetic rows.  Pulls children's-appare, summarize() (+1 more)
 
 ### Community 8 - "Community 8"
 Cohesion: 0.27
@@ -338,7 +338,7 @@ Cohesion: 1.0
 Nodes (0): 
 
 ## Knowledge Gaps
-- **22 isolated node(s):** `Smoke test so CI has a real green signal from day one. See docs/pravin_handoff.m`, `CPSC Recalls ETL — real public data, no synthetic rows.  Pulls children's-appare`, `Frozen-model parity gate (spec §6.4): the endpoint must serve ONLY the byte-exac`, `Copy the real frozen bundle into a temp dir we can tamper with safely.`, `The behavior Render actually depends on: importing api.main against a tampered` (+17 more)
+- **22 isolated node(s):** `Smoke test so CI has a real green signal from day one. See docs/pravin_handoff.m`, `CPSC Recalls ETL, real public data, no synthetic rows.  Pulls children's-appare`, `Frozen-model parity gate (spec §6.4): the endpoint must serve ONLY the byte-exac`, `Copy the real frozen bundle into a temp dir we can tamper with safely.`, `The behavior Render actually depends on: importing api.main against a tampered` (+17 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **Thin community `Community 19`** (2 nodes): `RootLayout()`, `layout.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -434,7 +434,7 @@ _Questions this graph is uniquely positioned to answer:_
   _High betweenness centrality (0.086) - this node is a cross-community bridge._
 - **Are the 31 inferred relationships involving `GET()` (e.g. with `_fetch_term()` and `_flatten()`) actually correct?**
   _`GET()` has 31 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `Smoke test so CI has a real green signal from day one. See docs/pravin_handoff.m`, `CPSC Recalls ETL — real public data, no synthetic rows.  Pulls children's-appare`, `Frozen-model parity gate (spec §6.4): the endpoint must serve ONLY the byte-exac` to the rest of the system?**
+- **What connects `Smoke test so CI has a real green signal from day one. See docs/pravin_handoff.m`, `CPSC Recalls ETL, real public data, no synthetic rows.  Pulls children's-appare`, `Frozen-model parity gate (spec §6.4): the endpoint must serve ONLY the byte-exac` to the rest of the system?**
   _22 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.09 - nodes in this community are weakly interconnected._

@@ -8,7 +8,7 @@ Three views of REWEAR-FUSED, from broad to specific. The same three-layer stack 
 | 2 | **Codebase graph** (graphify) | engineering rigor: 287 nodes, 401 edges, 60 communities | [live](https://rewear-fused.vercel.app/visualizations/codebase-graph.html) · [`GRAPH_REPORT.md`](GRAPH_REPORT.md) |
 | 3 | **3D knowledge graph** (hand-curated) | intent: the co-design loop and the two coupled molecules | [live, interactive](https://rewear-fused.vercel.app/visualizations/knowledge-graph.html) |
 
-## Layer 1 — Gource git-history time-lapse
+## Layer 1, Gource git-history time-lapse
 
 An animated tree of the repository's commit history: files appear, contributors orbit, the structure grows. Rendered with `gource` + `ffmpeg` from the event-window git log.
 
@@ -16,7 +16,7 @@ An animated tree of the repository's commit history: files appear, contributors 
 
 ▶ [`rewear-fused-gource.mp4`](rewear-fused-gource.mp4) (3.6 MB, 1280x720)
 
-## Layer 2 — Codebase graph (graphify)
+## Layer 2, Codebase graph (graphify)
 
 Auto-extracted from the source with [graphify](https://pypi.org/project/graphifyy/): every symbol, every import and call edge, clustered into communities. The most-connected "god nodes" are the real load-bearing abstractions: the Engine C API handler `GET()`, the data loaders `v_classification()` / `v_fibers()`, and the frozen-parity boot gate `_verify_frozen_parity()`.
 
@@ -24,7 +24,7 @@ Auto-extracted from the source with [graphify](https://pypi.org/project/graphify
 - Plain-language audit: [`GRAPH_REPORT.md`](GRAPH_REPORT.md)
 - RAG-ready node-link JSON: [`rewear-fused-codebase-graph.json`](rewear-fused-codebase-graph.json)
 
-## Layer 3 — 3D knowledge graph (hand-curated)
+## Layer 3, 3D knowledge graph (hand-curated)
 
 27 nodes across 7 layers (Engine A fiber, Engine B enzyme, Engine C passport, data and provenance, regulation, the co-design loop, prizes), the co-design loop at the center. Glowing orbs, hover-to-trace, click for detail, auto-orbit. WebGL via three.js + 3d-force-graph + bloom, zero build step.
 
@@ -43,5 +43,5 @@ gource --seconds-per-day 8 --hide mouse,progress,filenames --bloom-multiplier 0.
 # Layer 2: graphify codebase graph
 pip install graphifyy && graphify update .
 
-# Layer 3: hand-curated 3D graph — three.js + 3d-force-graph + UnrealBloomPass (CDN)
+# Layer 3: hand-curated 3D graph, three.js + 3d-force-graph + UnrealBloomPass (CDN)
 ```

@@ -1,4 +1,4 @@
-# Data Contract (v1.0.0) — the single anti-drift surface
+# Data Contract (v1.0.0), the single anti-drift surface
 
 **Owner: Stephen. Consumers: Pravin (backend outputs), Vinh (Engine C outputs), frontend (mocks + live render).**
 
