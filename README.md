@@ -18,10 +18,10 @@ Built for the Cox Enterprises **"Play With Purpose"** Sustainability Hackathon, 
   <img src="https://img.shields.io/badge/TRL-2--3%20in--silico-e0934f.svg" alt="TRL 2-3 in-silico">
   <img src="https://img.shields.io/badge/track-Making%20%26%20Remaking%20(Carter's)-3fb950.svg" alt="Track: Making & Remaking">
 </p>
-<!-- On June 14, after the public repo + deploy exist, add the live badges here:
-  [![CI](https://github.com/StephenSook/<repo>/actions/workflows/ci.yml/badge.svg)](https://github.com/StephenSook/<repo>/actions/workflows/ci.yml)
-  [![Live](https://img.shields.io/badge/demo-live-3fb950.svg)](<vercel url>)
--->
+<p align="center">
+  <a href="https://github.com/StephenSook/rewear-fused/actions/workflows/ci.yml"><img src="https://github.com/StephenSook/rewear-fused/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://rewear-fused.vercel.app"><img src="https://img.shields.io/badge/demo-live-3fb950.svg" alt="Live demo"></a>
+</p>
 
 > Everything REWEAR-FUSED produces is an **in-silico design with benchmark-referenced metrics**, not a wet-lab-validated material or enzyme. Every number is a live pipeline output (Engine C), a verified citation, or a clearly-labeled in-silico design value (Engines A/B). No synthetic data, no fictional persona. The honesty is on a [`/judges`](frontend/src/app/judges/page.tsx) page that tiers exactly what is real.
 
