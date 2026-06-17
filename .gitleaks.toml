@@ -1,0 +1,17 @@
+# REWEAR-FUSED secret-scan config (gitleaks).
+# Extends the default ruleset. The allowlist below documents the ONLY matches
+# gitleaks finds, all of which are PUBLIC-BY-DESIGN content, not secrets:
+#   - data/artifacts/** and frontend/src/lib/artifacts/** hold the signed
+#     artifact bundle: SHA-256 content hashes (manifest.json) and the W3C
+#     Verifiable Credential proof.signatureValue (a PUBLIC Ed25519 signature,
+#     meant to be verified in-browser, never hidden) + the did:key issuer DID.
+# No real credentials, API keys, tokens, or private keys are committed.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Signed artifact bundle: public SHA-256 hashes + public Ed25519 VC signatures + did:key issuer (not secrets)"
+paths = [
+  '''data/artifacts/.*\.json$''',
+  '''frontend/src/lib/artifacts/.*\.json$''',
+]
