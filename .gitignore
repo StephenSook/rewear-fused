@@ -64,3 +64,4 @@ data/datasets/
 
 # NOTE: data/artifacts/ IS tracked. Those are the real, signed pipeline outputs
 # (the demo evidence) and must stay in version control.
+graphify-out/

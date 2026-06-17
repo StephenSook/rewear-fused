@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>REWEAR-FUSED — 3D Knowledge Graph</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #06080e; overflow: hidden; font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace; }
+
+  #header {
+    position: absolute; top: 20px; left: 24px; z-index: 10;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  #header h1 {
+    color: #2fe0c4; font-size: 18px; font-weight: 700; letter-spacing: 3px;
+    text-shadow: 0 0 22px rgba(47, 224, 196, 0.5);
+  }
+  #header p { color: #5a6472; font-size: 11px; letter-spacing: 1px; }
+
+  #legend {
+    position: absolute; bottom: 24px; left: 24px; z-index: 10;
+    background: rgba(6, 8, 14, 0.92); border: 1px solid #1d2330;
+    border-radius: 10px; padding: 16px 20px; backdrop-filter: blur(12px);
+  }
+  .legend-title {
+    color: #8b949e; font-size: 9px; font-weight: 700;
+    letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase;
+  }
+  .legend-item { display: flex; align-items: center; gap: 10px; margin: 6px 0; color: #c9d1d9; font-size: 11px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+  #info-panel {
+    position: absolute; bottom: 24px; right: 24px; z-index: 10;
+    background: rgba(6, 8, 14, 0.94); border: 1px solid #1d2330;
+    border-radius: 10px; padding: 16px 20px; backdrop-filter: blur(12px);
+    max-width: 400px; display: none; white-space: pre-wrap;
+  }
+  #info-panel .info-title { color: #2fe0c4; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  #info-panel .info-group { color: #5a6472; font-size: 10px; letter-spacing: 1.5px; margin-bottom: 8px; text-transform: uppercase; }
+  #info-panel .info-desc { color: #c9d1d9; font-size: 11px; line-height: 1.6; }
+
+  #controls {
+    position: absolute; top: 20px; right: 24px; z-index: 10;
+    display: flex; gap: 8px;
+  }
+  #controls button {
+    background: rgba(6, 8, 14, 0.85); border: 1px solid #1d2330;
+    color: #c9d1d9; padding: 7px 14px; border-radius: 8px; cursor: pointer;
+    font-family: inherit; font-size: 11px; letter-spacing: 1px;
+    backdrop-filter: blur(8px); transition: all 0.2s;
+  }
+  #controls button:hover { border-color: #2fe0c4; color: #2fe0c4; }
+  #badge {
+    position: absolute; top: 56px; left: 24px; z-index: 10;
+    color: #5a6472; font-size: 9.5px; letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <h1>REWEAR-FUSED &middot; KNOWLEDGE GRAPH</h1>
+  <p>THE CO-DESIGN LOOP &middot; HOVER TO TRACE &middot; CLICK A NODE FOR DETAIL</p>
+</div>
+<div id="badge">in-silico (TRL 2&ndash;3) &middot; Engine C live &middot; honesty moat</div>
+
+<div id="controls">
+  <button id="btn-reset">RESET VIEW</button>
+  <button id="btn-spin">AUTO-ROTATE</button>
+</div>
+
+<div id="legend">
+  <div class="legend-title">System Layers</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#e0934f; box-shadow:0 0 12px #e0934f"></div>Engine A &middot; Fiber</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#2fe0c4; box-shadow:0 0 12px #2fe0c4"></div>Engine B &middot; Enzyme</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#4d96ff; box-shadow:0 0 12px #4d96ff"></div>Engine C &middot; Passport</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c084fc; box-shadow:0 0 12px #c084fc"></div>Data &amp; Provenance</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f472b6; box-shadow:0 0 12px #f472b6"></div>Regulation</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ffd93d; box-shadow:0 0 12px #ffd93d"></div>Co-Design Loop</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#6bcb77; box-shadow:0 0 12px #6bcb77"></div>Prize &amp; Target</div>
+</div>
+
+<div id="info-panel">
+  <div class="info-group" id="info-group"></div>
+  <div class="info-title" id="info-title"></div>
+  <div class="info-desc" id="info-desc"></div>
+</div>
+
+<div id="graph"></div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://esm.sh/three@0.181.0",
+    "three/": "https://esm.sh/three@0.181.0/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import ForceGraph3D from 'https://esm.sh/3d-force-graph@1.73.4?external=three';
+import SpriteText from 'https://esm.sh/three-spritetext?external=three';
+
+const COLORS = {
+  fiber:  '#e0934f',
+  enzyme: '#2fe0c4',
+  passport: '#4d96ff',
+  data:   '#c084fc',
+  reg:    '#f472b6',
+  loop:   '#ffd93d',
+  prize:  '#6bcb77',
+};
+const GROUP_LABELS = {
+  fiber: 'ENGINE A · CLEAVABLE FIBER', enzyme: 'ENGINE B · CARBAMATE HYDROLASE',
+  passport: 'ENGINE C · LIVE PASSPORT', data: 'DATA & PROVENANCE',
+  reg: 'CHEMICAL REGULATION', loop: 'CO-DESIGN LOOP', prize: 'PRIZE & TARGET',
+};
+
+const nodes = [
+  // ── Co-design loop (the hub) ──
+  { id: 'codesign', name: 'Co-Design Loop', group: 'loop', val: 26, desc: 'The thesis. One inverse-design problem, two coupled molecules: a new cleavable elastane AND the matched enzyme that uniquely cleaves it.\nNo one has co-designed a fiber and its enzyme, together, for textiles before.' },
+  { id: 'closed_loop', name: 'Closed Recycling Loop', group: 'loop', val: 18, desc: 'Depolymerize the recovered fiber to monomers, re-spin into a new onesie. A regenerative loop, not a one-time downcycle.\nReplaces "shred -> pet bedding -> landfill".' },
+  { id: 'handoff', name: 'Substrate Handoff', group: 'loop', val: 13, desc: 'The matched-pair proof. The exact carbamate bond Engine A builds into the fiber is the exact bond Engine B is designed to cut. One design, not two projects.' },
+
+  // ── Engine A: fiber ──
+  { id: 'engine_a', name: 'Engine A · Fiber Screening', group: 'fiber', val: 20, desc: 'Constraint-guided virtual screening of polyurethane-urea chemical space. Enumerate -> score -> filter -> top candidate. In-silico, TRL 3.\nNot generative invention: screening of known chemistries.' },
+  { id: 'cleavable_fiber', name: 'Cleavable Elastane', group: 'fiber', val: 16, desc: 'The designed stretch fiber. Cleavable carbamate bond in the soft, amorphous segment so the >400% stretch survives. Drop-in to existing dry-spinning.' },
+  { id: 'carbamate', name: 'Carbamate Bond', group: 'fiber', val: 13, desc: 'The cleavable linkage, in the soft segment (not the load-bearing crystalline hard domains). The exact bond the matched enzyme targets.' },
+  { id: 'aliphatic', name: 'Aliphatic Isocyanate', group: 'fiber', val: 12, desc: 'HDI / IPDI / H12MDI only. Cleaves to aliphatic diamines, never the aromatic carcinogens (MDA/TDA). No carcinogen sheds near a baby.' },
+  { id: 'tradeoff', name: 'Mechanics vs Cleavability', group: 'fiber', val: 12, desc: 'The honesty centerpiece. Hard-segment 25-35 wt% design window: below ~17% degrades too fast, above ~40% will not degrade. Xu SusMat 2026, Qin Adv. Sci. 2024.' },
+
+  // ── Engine B: enzyme ──
+  { id: 'engine_b', name: 'Engine B · Hydrolase Redesign', group: 'enzyme', val: 20, desc: 'LigandMPNN redesign of a serine-hydrolase scaffold for carbamate hydrolysis. In-silico, TRL 2. The de-novo fold (no prior art, TM<0.5) is the deferred GPU swing.' },
+  { id: 'hydrolase', name: 'Carbamate Hydrolase', group: 'enzyme', val: 16, desc: 'The matched enzyme. Designed to cleave the exact bond in Engine A’s fiber, then spare the companion cotton.' },
+  { id: 'triad', name: 'Ser-His-Asp Triad', group: 'enzyme', val: 13, desc: 'Engineered catalytic triad, repositioned for near-neutral pH 7.0-8.5 (not the wild-type pH-10 trap that would destroy companion cotton).' },
+  { id: 'scaffold', name: 'CALB / PDB 1TCA Scaffold', group: 'enzyme', val: 12, desc: 'The published reference scaffold the lead design is built on, rendered live in Mol*. The structure shown and downloadable is this reference, labeled honestly.' },
+  { id: 'placer', name: 'PLACER Targets', group: 'enzyme', val: 12, desc: 'In-silico preorganization metrics on the Lauko 2025 thresholds (pLDDT, catalytic-Ca RMSD, FoldSeek TM ~0.8 to template). Design targets, not lab-measured.' },
+
+  // ── Engine C: passport ──
+  { id: 'engine_c', name: 'Engine C · Live Passport', group: 'passport', val: 24, desc: 'The Digital Recyclability Passport. The deployable demo floor, TRL 6, running live. Routes every garment clear / lab-test / divert against real US + EU regulation.' },
+  { id: 'classifier', name: 'CatBoost Classifier', group: 'passport', val: 14, desc: 'Deterministic rule layer over 85+ real thresholds, plus a per-label CatBoost on real recall text. Honest PR-AUC reported alongside ROC.' },
+  { id: 'fastapi', name: 'FastAPI on Render', group: 'passport', val: 12, desc: 'The live endpoint. Frozen-model parity: refuses to boot unless the served output SHA matches the signed bundle. Keep-alive cron for judges.' },
+
+  // ── Data & provenance ──
+  { id: 'cpsc', name: '631 CPSC Recalls', group: 'data', val: 14, desc: 'Real public training data (saferproducts.gov). No synthetic data in the judged path. Small-but-real beats large-but-synthetic.' },
+  { id: 'credential', name: 'Ed25519 Credential', group: 'data', val: 14, desc: 'A real W3C Verifiable Credential, did:key issuer, signed with Ed25519. Verifiable cryptographically in the browser, with a tamper toggle. No server, nothing to trust.' },
+  { id: 'gs1', name: 'GS1 Digital Link', group: 'data', val: 12, desc: 'A scannable EU-DPP identifier. Our app is the resolver: scan the QR -> the live single-product passport opens on any phone.' },
+
+  // ── Regulation ──
+  { id: 'cpsia', name: 'CPSIA', group: 'reg', val: 10, desc: 'US federal: lead, phthalates, 16 CFR 1610 flammability for children’s products.' },
+  { id: 'reach', name: 'REACH Annex XVII', group: 'reg', val: 10, desc: 'EU: aromatic amines (Entry 43) + the elastane carcinogen pathway the aliphatic design avoids by construction.' },
+  { id: 'sb707', name: 'CA SB 707 (Textile EPR)', group: 'reg', val: 11, desc: 'California Responsible Textile Recovery Act. Eco-modulated producer fees, penalties to $50K/day. The passport is the fee-reducing compliance asset.' },
+  { id: 'espr', name: 'EU ESPR / DPP', group: 'reg', val: 11, desc: 'EU Ecodesign for Sustainable Products Regulation. Textiles Digital Product Passport delegated act ~Q2 2027. The passport pre-positions for it.' },
+  { id: 'oekotex', name: 'OEKO-TEX Class I', group: 'reg', val: 10, desc: 'Infant-textile limits. The "aromatic amine release: NONE" green check is the aliphatic-only design proven against this class.' },
+
+  // ── Prizes / targets ──
+  { id: 'carters', name: "Carter's Make & Remake", group: 'prize', val: 14, desc: 'The track. Carter’s already pays TerraCycle to downcycle worn onesies into pet bedding; this replaces that line item with a fiber-to-fiber loop + a compliance asset.' },
+  { id: 'grand', name: 'Cox Grand Prize', group: 'prize', val: 14, desc: 'The "shouldn’t be possible" reaction. The co-design loop is the novelty; the de-novo enzyme is the deferred swing. We’re the Nexus Circular of textiles.' },
+  { id: 'residency', name: 'Cox Cleantech Residency', group: 'prize', val: 12, desc: '$10K + 6 weeks to wet-lab-validate the top matched pair, file a provisional on the composition-of-matter + method, and pilot one Carter’s SKU.' },
+];
+
+const links = [
+  // co-design hub
+  { source: 'engine_a', target: 'codesign' },
+  { source: 'engine_b', target: 'codesign' },
+  { source: 'cleavable_fiber', target: 'codesign' },
+  { source: 'hydrolase', target: 'codesign' },
+  { source: 'codesign', target: 'closed_loop' },
+  // fiber half
+  { source: 'engine_a', target: 'cleavable_fiber' },
+  { source: 'engine_a', target: 'tradeoff' },
+  { source: 'cleavable_fiber', target: 'carbamate' },
+  { source: 'cleavable_fiber', target: 'aliphatic' },
+  { source: 'tradeoff', target: 'cleavable_fiber' },
+  // enzyme half
+  { source: 'engine_b', target: 'hydrolase' },
+  { source: 'engine_b', target: 'placer' },
+  { source: 'hydrolase', target: 'triad' },
+  { source: 'hydrolase', target: 'scaffold' },
+  { source: 'placer', target: 'hydrolase' },
+  // matched pair / handoff
+  { source: 'carbamate', target: 'handoff' },
+  { source: 'handoff', target: 'triad' },
+  { source: 'handoff', target: 'hydrolase' },
+  // closed loop
+  { source: 'hydrolase', target: 'closed_loop' },
+  { source: 'closed_loop', target: 'cleavable_fiber' },
+  // Engine C
+  { source: 'engine_c', target: 'classifier' },
+  { source: 'engine_c', target: 'fastapi' },
+  { source: 'engine_c', target: 'credential' },
+  { source: 'engine_c', target: 'gs1' },
+  { source: 'classifier', target: 'cpsc' },
+  // classifier routes against regs
+  { source: 'classifier', target: 'cpsia' },
+  { source: 'classifier', target: 'reach' },
+  { source: 'classifier', target: 'sb707' },
+  { source: 'classifier', target: 'espr' },
+  { source: 'classifier', target: 'oekotex' },
+  // aliphatic safety meets regulation
+  { source: 'aliphatic', target: 'reach' },
+  { source: 'aliphatic', target: 'oekotex' },
+  // provenance
+  { source: 'credential', target: 'gs1' },
+  { source: 'gs1', target: 'closed_loop' },
+  // outcomes
+  { source: 'engine_c', target: 'carters' },
+  { source: 'engine_c', target: 'residency' },
+  { source: 'engine_c', target: 'sb707' },
+  { source: 'closed_loop', target: 'carters' },
+  { source: 'codesign', target: 'grand' },
+  { source: 'engine_b', target: 'grand' },
+  { source: 'residency', target: 'grand' },
+];
+
+// ── Pre-compute neighbors for hover highlighting ───────────────────
+nodes.forEach(n => { n.neighbors = []; n.links = []; });
+links.forEach(link => {
+  const a = nodes.find(n => n.id === link.source);
+  const b = nodes.find(n => n.id === link.target);
+  if (a && b) { a.neighbors.push(b); b.neighbors.push(a); a.links.push(link); b.links.push(link); }
+});
+
+const highlightNodes = new Set();
+const highlightLinks = new Set();
+let hoverNode = null;
+function getSourceNode(link) {
+  const sid = typeof link.source === 'object' ? link.source.id : link.source;
+  return nodes.find(n => n.id === sid);
+}
+
+const graphEl = document.getElementById('graph');
+let spinning = true;
+
+const Graph = ForceGraph3D()(graphEl)
+  .graphData({ nodes, links })
+  .backgroundColor('#06080e')
+  .width(window.innerWidth)
+  .height(window.innerHeight)
+  .showNavInfo(false)
+  .nodeColor(node => {
+    if (highlightNodes.size === 0) return COLORS[node.group];
+    return highlightNodes.has(node) ? COLORS[node.group] : COLORS[node.group] + '30';
+  })
+  .nodeVal(n => n.val)
+  .nodeRelSize(5)
+  .nodeOpacity(0.92)
+  .nodeResolution(24)
+  .nodeThreeObject(node => {
+    const sprite = new SpriteText(node.name);
+    sprite.color = COLORS[node.group];
+    sprite.backgroundColor = 'rgba(6, 8, 14, 0.65)';
+    sprite.padding = 1.5;
+    sprite.borderRadius = 2;
+    sprite.textHeight = 2.6;
+    sprite.material.depthWrite = false;
+    sprite.position.y = 10;
+    return sprite;
+  })
+  .nodeThreeObjectExtend(true)
+  .nodeLabel(n =>
+    `<div style="color:${COLORS[n.group]};background:rgba(6,8,14,0.92);padding:6px 12px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;border:1px solid ${COLORS[n.group]}44;max-width:320px;line-height:1.5">${n.desc.split('\n')[0]}</div>`
+  )
+  .linkColor(link => {
+    const sn = getSourceNode(link);
+    const base = sn ? COLORS[sn.group] : '#ffffff';
+    if (highlightLinks.size === 0) return base + '44';
+    return highlightLinks.has(link) ? base + 'cc' : base + '12';
+  })
+  .linkWidth(link => highlightLinks.has(link) ? 2.5 : 0.6)
+  .linkOpacity(0.3)
+  .linkDirectionalParticles(link => highlightLinks.has(link) ? 6 : 2)
+  .linkDirectionalParticleWidth(link => highlightLinks.has(link) ? 3 : 1.5)
+  .linkDirectionalParticleSpeed(0.005)
+  .linkDirectionalParticleColor(link => {
+    const sn = getSourceNode(link);
+    return sn ? COLORS[sn.group] : '#ffffff';
+  })
+  .linkDirectionalArrowLength(5)
+  .linkDirectionalArrowRelPos(1)
+  .linkDirectionalArrowColor(link => {
+    const sn = getSourceNode(link);
+    return sn ? COLORS[sn.group] + '88' : '#ffffff88';
+  })
+  .linkCurvature(0.15)
+  .onNodeHover(node => {
+    if ((!node && !highlightNodes.size) || (node && hoverNode === node)) return;
+    highlightNodes.clear(); highlightLinks.clear();
+    if (node) {
+      highlightNodes.add(node);
+      node.neighbors.forEach(n => highlightNodes.add(n));
+      node.links.forEach(l => highlightLinks.add(l));
+    }
+    hoverNode = node || null;
+    updateHighlight();
+    graphEl.style.cursor = node ? 'pointer' : 'default';
+  })
+  .onNodeClick(node => {
+    document.getElementById('info-group').textContent = GROUP_LABELS[node.group] || '';
+    document.getElementById('info-title').textContent = node.name;
+    document.getElementById('info-desc').textContent = node.desc;
+    document.getElementById('info-panel').style.display = 'block';
+    const dist = 110;
+    const ratio = 1 + dist / Math.hypot(node.x, node.y, node.z);
+    Graph.cameraPosition({ x: node.x * ratio, y: node.y * ratio, z: node.z * ratio }, node, 1500);
+  })
+  .onBackgroundClick(() => {
+    document.getElementById('info-panel').style.display = 'none';
+    highlightNodes.clear(); highlightLinks.clear(); hoverNode = null; updateHighlight();
+  });
+
+function updateHighlight() {
+  Graph.nodeColor(Graph.nodeColor()).linkColor(Graph.linkColor())
+    .linkWidth(Graph.linkWidth()).linkDirectionalParticles(Graph.linkDirectionalParticles())
+    .linkDirectionalParticleWidth(Graph.linkDirectionalParticleWidth());
+}
+
+Graph.d3Force('charge').strength(-260);
+Graph.d3Force('link').distance(70);
+
+try {
+  const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 2.4, 0.85, 0);
+  Graph.postProcessingComposer().addPass(bloomPass);
+} catch (e) { console.warn('Bloom unavailable:', e); }
+
+const starGeometry = new THREE.BufferGeometry();
+const starPositions = new Float32Array(5000 * 3);
+for (let i = 0; i < 5000 * 3; i++) starPositions[i] = (Math.random() - 0.5) * 10000;
+starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+Graph.scene().add(new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0xffffff, size: 0.5, transparent: true, opacity: 0.4 })));
+Graph.scene().fog = new THREE.FogExp2(0x06080e, 0.00025);
+
+setTimeout(() => { Graph.cameraPosition({ x: 0, y: 0, z: 420 }, { x: 0, y: 0, z: 0 }, 2000); }, 300);
+
+function spin() {
+  if (!spinning) return;
+  const t = Date.now() * 0.00008;
+  Graph.cameraPosition({ x: 420 * Math.sin(t), y: 80 * Math.sin(t * 0.6), z: 420 * Math.cos(t) });
+  requestAnimationFrame(spin);
+}
+spin();
+
+document.getElementById('btn-reset').addEventListener('click', () => {
+  Graph.cameraPosition({ x: 0, y: 0, z: 420 }, { x: 0, y: 0, z: 0 }, 1500);
+  document.getElementById('info-panel').style.display = 'none';
+  highlightNodes.clear(); highlightLinks.clear(); hoverNode = null; updateHighlight();
+});
+document.getElementById('btn-spin').addEventListener('click', () => { spinning = !spinning; if (spinning) spin(); });
+window.addEventListener('resize', () => { Graph.width(window.innerWidth).height(window.innerHeight); });
+</script>
+</body>
+</html>

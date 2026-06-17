@@ -23,3 +23,6 @@ data/datasets/**        binary
 *.bcif                  binary
 *.cif                   binary
 *.mmcif                 binary
+*.mp4 binary
+*.png binary
+*.webm binary
