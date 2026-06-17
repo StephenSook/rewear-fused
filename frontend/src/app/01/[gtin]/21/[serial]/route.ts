@@ -14,7 +14,8 @@ export async function GET(
 ) {
   const { gtin } = await params;
   const garmentId = GTIN_TO_GARMENT[gtin];
-  const url = new URL("/passport", req.url);
-  if (garmentId) url.searchParams.set("g", garmentId);
+  // Resolve to the garment's own single-product passport page; unknown GTINs
+  // fall back to the passport index.
+  const url = new URL(garmentId ? `/passport/${garmentId}` : "/passport", req.url);
   return NextResponse.redirect(url, 307);
 }

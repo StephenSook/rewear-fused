@@ -7,6 +7,7 @@ export const metadata = {
 export default function LoopPage() {
   return (
     <main className="flex-1">
+      <h1 className="sr-only">The Closed Loop · REWEAR-FUSED</h1>
       <LoopExperience />
     </main>
   );

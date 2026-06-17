@@ -228,7 +228,13 @@ function RegulatoryRouter({
   );
 }
 
-export function PassportExplorer({ initialGarmentId }: { initialGarmentId?: string }) {
+export function PassportExplorer({
+  initialGarmentId,
+  hidePicker,
+}: {
+  initialGarmentId?: string;
+  hidePicker?: boolean;
+}) {
   const garments = getGarments();
   // Open on the deep-linked garment if a scanned passport QR resolved to
   // /passport?g=<id> (the server page passes it through); otherwise the legging
@@ -250,6 +256,7 @@ export function PassportExplorer({ initialGarmentId }: { initialGarmentId?: stri
 
   return (
     <div className="space-y-8">
+      {!hidePicker && (
       <Reveal>
         <div>
           <MonoLabel>01 · Garment intake</MonoLabel>
@@ -291,6 +298,7 @@ export function PassportExplorer({ initialGarmentId }: { initialGarmentId?: stri
           </div>
         </div>
       </Reveal>
+      )}
 
       <Reveal delay={0.05}>
         <div className="grid gap-6 lg:grid-cols-2">

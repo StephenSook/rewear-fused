@@ -18,12 +18,21 @@ const CHAPTERS = [
 export function NavRail() {
   const path = usePathname();
   return (
-    <nav className="fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-2 sm:flex">
+    <nav
+      aria-label="Section navigation"
+      className="fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-2 sm:flex"
+    >
       {CHAPTERS.map((c) => {
         const active = c.href === "/" ? path === "/" : path.startsWith(c.href);
         const accent = c.accent ?? "bio";
         return (
-          <Link key={c.href} href={c.href} onClick={() => audioEngine.tick()} className="block">
+          <Link
+            key={c.href}
+            href={c.href}
+            onClick={() => audioEngine.tick()}
+            aria-current={active ? "page" : undefined}
+            className="block"
+          >
             <Tilt3D accent={accent} maxTilt={11} magnetic={0.16} className="cursor-pointer">
               <div
                 className={cn(

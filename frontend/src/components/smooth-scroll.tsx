@@ -14,6 +14,8 @@ import { lenisRef } from "@/lib/lenis";
  */
 export function SmoothScroll() {
   useEffect(() => {
+    // Honor prefers-reduced-motion: skip JS smooth-scroll, keep native scroll.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     gsap.registerPlugin(ScrollTrigger);
     const lenis = new Lenis({ autoRaf: false });
     lenisRef.current = lenis;
