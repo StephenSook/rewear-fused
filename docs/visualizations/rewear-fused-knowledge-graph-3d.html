@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>REWEAR-FUSED — 3D Knowledge Graph</title>
+<title>REWEAR-FUSED · 3D Knowledge Graph</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #06080e; overflow: hidden; font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace; }
@@ -133,7 +133,7 @@ const nodes = [
 
   // ── Engine B: enzyme ──
   { id: 'engine_b', name: 'Engine B · Hydrolase Redesign', group: 'enzyme', val: 20, desc: 'LigandMPNN redesign of a serine-hydrolase scaffold for carbamate hydrolysis. In-silico, TRL 2. The de-novo fold (no prior art, TM<0.5) is the deferred GPU swing.' },
-  { id: 'hydrolase', name: 'Carbamate Hydrolase', group: 'enzyme', val: 16, desc: 'The matched enzyme. Designed to cleave the exact bond in Engine A’s fiber, then spare the companion cotton.' },
+  { id: 'hydrolase', name: 'Carbamate Hydrolase', group: 'enzyme', val: 16, desc: 'The matched enzyme. Designed to cleave the exact bond in Engine A's fiber, then spare the companion cotton.' },
   { id: 'triad', name: 'Ser-His-Asp Triad', group: 'enzyme', val: 13, desc: 'Engineered catalytic triad, repositioned for near-neutral pH 7.0-8.5 (not the wild-type pH-10 trap that would destroy companion cotton).' },
   { id: 'scaffold', name: 'CALB / PDB 1TCA Scaffold', group: 'enzyme', val: 12, desc: 'The published reference scaffold the lead design is built on, rendered live in Mol*. The structure shown and downloadable is this reference, labeled honestly.' },
   { id: 'placer', name: 'PLACER Targets', group: 'enzyme', val: 12, desc: 'In-silico preorganization metrics on the Lauko 2025 thresholds (pLDDT, catalytic-Ca RMSD, FoldSeek TM ~0.8 to template). Design targets, not lab-measured.' },
@@ -149,16 +149,16 @@ const nodes = [
   { id: 'gs1', name: 'GS1 Digital Link', group: 'data', val: 12, desc: 'A scannable EU-DPP identifier. Our app is the resolver: scan the QR -> the live single-product passport opens on any phone.' },
 
   // ── Regulation ──
-  { id: 'cpsia', name: 'CPSIA', group: 'reg', val: 10, desc: 'US federal: lead, phthalates, 16 CFR 1610 flammability for children’s products.' },
+  { id: 'cpsia', name: 'CPSIA', group: 'reg', val: 10, desc: 'US federal: lead, phthalates, 16 CFR 1610 flammability for children's products.' },
   { id: 'reach', name: 'REACH Annex XVII', group: 'reg', val: 10, desc: 'EU: aromatic amines (Entry 43) + the elastane carcinogen pathway the aliphatic design avoids by construction.' },
   { id: 'sb707', name: 'CA SB 707 (Textile EPR)', group: 'reg', val: 11, desc: 'California Responsible Textile Recovery Act. Eco-modulated producer fees, penalties to $50K/day. The passport is the fee-reducing compliance asset.' },
   { id: 'espr', name: 'EU ESPR / DPP', group: 'reg', val: 11, desc: 'EU Ecodesign for Sustainable Products Regulation. Textiles Digital Product Passport delegated act ~Q2 2027. The passport pre-positions for it.' },
   { id: 'oekotex', name: 'OEKO-TEX Class I', group: 'reg', val: 10, desc: 'Infant-textile limits. The "aromatic amine release: NONE" green check is the aliphatic-only design proven against this class.' },
 
   // ── Prizes / targets ──
-  { id: 'carters', name: "Carter's Make & Remake", group: 'prize', val: 14, desc: 'The track. Carter’s already pays TerraCycle to downcycle worn onesies into pet bedding; this replaces that line item with a fiber-to-fiber loop + a compliance asset.' },
-  { id: 'grand', name: 'Cox Grand Prize', group: 'prize', val: 14, desc: 'The "shouldn’t be possible" reaction. The co-design loop is the novelty; the de-novo enzyme is the deferred swing. We’re the Nexus Circular of textiles.' },
-  { id: 'residency', name: 'Cox Cleantech Residency', group: 'prize', val: 12, desc: '$10K + 6 weeks to wet-lab-validate the top matched pair, file a provisional on the composition-of-matter + method, and pilot one Carter’s SKU.' },
+  { id: 'carters', name: "Carter's Make & Remake", group: 'prize', val: 14, desc: 'The track. Carter's already pays TerraCycle to downcycle worn onesies into pet bedding; this replaces that line item with a fiber-to-fiber loop + a compliance asset.' },
+  { id: 'grand', name: 'Cox Grand Prize', group: 'prize', val: 14, desc: 'The "shouldn't be possible" reaction. The co-design loop is the novelty; the de-novo enzyme is the deferred swing. We're the Nexus Circular of textiles.' },
+  { id: 'residency', name: 'Cox Cleantech Residency', group: 'prize', val: 12, desc: '$10K + 6 weeks to wet-lab-validate the top matched pair, file a provisional on the composition-of-matter + method, and pilot one Carter's SKU.' },
 ];
 
 const links = [
@@ -297,7 +297,7 @@ const Graph = ForceGraph3D()(graphEl)
     updateHighlight();
     graphEl.style.cursor = node ? 'pointer' : 'default';
   })
-  .onNodeClick(node => {
+  .onNodeClick(node => { spinning = false;
     document.getElementById('info-group').textContent = GROUP_LABELS[node.group] || '';
     document.getElementById('info-title').textContent = node.name;
     document.getElementById('info-desc').textContent = node.desc;

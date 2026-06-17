@@ -26,7 +26,7 @@ export async function generateMetadata({
 }
 
 /**
- * Single-product Digital Recyclability Passport — the page a scanned GS1 QR
+ * Single-product Digital Recyclability Passport, the page a scanned GS1 QR
  * resolves to. Shows one garment's passport, compliance routing, scannable link,
  * and the in-browser credential verification, the way a real brand DPP behaves
  * (no garment picker).

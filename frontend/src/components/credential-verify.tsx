@@ -44,19 +44,21 @@ export function CredentialVerify({
     <div className="mt-6 border-t border-rule pt-4">
       <div className="flex items-center justify-between gap-3">
         <MonoLabel>Verifiable Credential · Ed25519</MonoLabel>
-        {done?.supported && (
+        {done && (
           <span
             className={cn(
               "inline-flex items-center gap-1.5 font-mono text-[0.6rem] tracking-widest uppercase",
-              done.ok ? "text-pass" : "text-fail",
+              !done.supported ? "text-fg-muted" : done.ok ? "text-pass" : "text-fail",
             )}
           >
-            {done.ok ? (
+            {!done.supported ? (
+              <ShieldWarning weight="regular" className="h-4 w-4" />
+            ) : done.ok ? (
               <ShieldCheck weight="fill" className="h-4 w-4" />
             ) : (
               <ShieldWarning weight="fill" className="h-4 w-4" />
             )}
-            {done.ok ? "Authentic" : "Tampered · invalid"}
+            {!done.supported ? "Unsupported" : done.ok ? "Authentic" : "Tampered · invalid"}
           </span>
         )}
       </div>
@@ -100,7 +102,7 @@ export function CredentialVerify({
           )}
         >
           {!done.supported
-            ? "This browser cannot run in-browser Ed25519 (needs a 2025+ browser); the signature itself is still valid."
+            ? "This browser cannot run in-browser Ed25519 verification (needs a 2025+ browser). Try a recent Chrome or Safari."
             : done.ok
               ? "VALID · the Ed25519 signature matches the issuer key over the exact passport bytes. Authentic and unaltered."
               : done.tampered

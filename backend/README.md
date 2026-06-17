@@ -1,16 +1,14 @@
-# backend — Engines A + B (Pravin)
+# backend: Engines A + B (Pravin)
 
-Molecular pipelines and the FastAPI artifact server. Full spec in `docs/pravin_handoff.md`. Outputs conform to `data/contract.md`.
+The molecular-design pipelines for Engine A (fiber screening) and Engine B (enzyme redesign). These run on a rented GPU (RunPod), **off this repo**; their pre-computed, signed outputs are committed under `data/artifacts/v1.0.0/` (conforming to `data/contract.md`), and the frontend reads those directly, so the live demo never waits on a GPU. The full pipeline spec is in the private handoff doc.
 
-- `engine_a/` — RDKit enumeration + property surrogates (constraint-guided screening, aliphatic only, 25-35 wt% hard, cleavable bond in the amorphous soft segment).
-- `engine_b/` — RFdiffusion2/3 to LigandMPNN to Boltz-2 to PLACER to FoldSeek (MIT/CC-BY only; no AlphaFold3/ESM3/Chai-2). Theozyme anchored on the UMG-SP2 Ser-His-Asp transition-state geometry.
-- `api/` — serves the signed artifact bundle.
-- `scripts/` — GPU pre-flight smoke (run once before June 14).
+- **Engine A**: RDKit enumeration over aliphatic isocyanates + soft diols + chain extenders, scored with PU-elastomer property surrogates, filtered to the 25-35 wt% hard-segment window with the cleavable bond in the amorphous soft segment. Constraint-guided screening, not generative design.
+- **Engine B**: a LigandMPNN redesign of a serine-hydrolase scaffold (refold + PLACER preorganization + FoldSeek novelty), anchored on the published UMG-SP2 Ser-His-Asp transition-state geometry. In-silico, TRL 2; the de-novo RFdiffusion2 fold is the deferred GPU swing. `scripts/swap_denovo_enzyme.py` swaps a real de-novo result into the frozen contract when it lands, and refuses any FoldSeek TM >= 0.5 to keep the de-novo claim honest.
 
-Artifact-freeze gate: June 15 EOD. Real pipeline outputs only, TRL 2-3 labeled, never fabricated.
+All outputs are in-silico, TRL 2-3, labeled as such, never fabricated.
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -e .
-pytest -q
+# the artifacts are pre-computed; to re-sign the bundle after a swap:
+python scripts/build_manifest.py
+python scripts/validate_artifacts.py --strict
 ```

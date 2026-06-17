@@ -26,7 +26,7 @@ export const GTIN_TO_GARMENT: Record<string, string> = Object.fromEntries(
 
 /** Deployed origin that hosts our resolver. Absolute so the QR scans from any
  *  phone; only the build sets it, so local dev falls back to the canonical URI. */
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "").replace(/\/+$/, "");
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://rewear-fused.vercel.app").replace(/\/+$/, "");
 
 /** The value encoded into the scannable QR. When the site origin is known, it is
  *  a GS1 Digital Link on our resolver that opens the live passport; otherwise the

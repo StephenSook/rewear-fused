@@ -22,7 +22,7 @@ export default function EnzymePage() {
 
       <Reveal>
         <header className="mt-6 mb-8">
-          <MonoLabel>Engine B · de-novo target, redesign fallback · the grand-prize swing</MonoLabel>
+          <MonoLabel>Engine B · LigandMPNN redesign · de-novo run deferred</MonoLabel>
           <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">
             A Designed Carbamate Hydrolase
           </h1>

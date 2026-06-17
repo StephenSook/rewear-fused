@@ -44,9 +44,11 @@ function isClassification(x: unknown): x is Classification {
 function isPassport(x: unknown): x is DigitalProductPassport {
   if (!x || typeof x !== "object") return false;
   const p = x as Record<string, unknown>;
+  const proof = (p.credential as { proof?: { signatureValue?: unknown } } | undefined)?.proof;
   return (
     typeof p.gs1DigitalLinkUri === "string" &&
     typeof p.qrPayload === "string" &&
+    typeof proof?.signatureValue === "string" &&
     isClassification(p.classification)
   );
 }

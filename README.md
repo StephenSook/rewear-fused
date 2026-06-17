@@ -115,8 +115,8 @@ Three views of the project, broad to specific: a git-history time-lapse, an auto
 
 [![Gource time-lapse of the REWEAR-FUSED build](docs/visualizations/gource-poster.png)](docs/visualizations/rewear-fused-gource.mp4)
 
-- **Git-history time-lapse** (Gource): [`docs/visualizations/rewear-fused-gource.mp4`](docs/visualizations/rewear-fused-gource.mp4) — click the still above to play.
-- **3D knowledge graph** (interactive, hover + click): [rewear-fused.vercel.app/visualizations/knowledge-graph.html](https://rewear-fused.vercel.app/visualizations/knowledge-graph.html) — the co-design loop and the two coupled molecules, glowing on a black canvas.
+- **Git-history time-lapse** (Gource): [`docs/visualizations/rewear-fused-gource.mp4`](docs/visualizations/rewear-fused-gource.mp4). Click the still above to play.
+- **3D knowledge graph** (interactive, hover + click): [rewear-fused.vercel.app/visualizations/knowledge-graph.html](https://rewear-fused.vercel.app/visualizations/knowledge-graph.html): the co-design loop and the two coupled molecules, glowing on a black canvas.
 - **Codebase graph** (graphify, 287 nodes / 401 edges): [live](https://rewear-fused.vercel.app/visualizations/codebase-graph.html) · [`GRAPH_REPORT.md`](docs/visualizations/GRAPH_REPORT.md).
 
 ## Quickstart
