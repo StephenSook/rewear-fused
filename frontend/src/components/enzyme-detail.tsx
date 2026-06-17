@@ -59,8 +59,9 @@ export function EnzymeDetail() {
             </span>
           </div>
           <p className="mt-2 font-mono text-[0.6rem] leading-relaxed text-fg-muted">
-            Real PLACER metrics for the LigandMPNN redesign, on the Lauko
-            thresholds. In-silico, not an expressed protein.
+            In-silico PLACER preorganization targets for the LigandMPNN
+            redesign, on the Lauko thresholds. Design metrics, not an expressed
+            protein.
           </p>
           <div className="mt-4 space-y-2">
             <Metric
@@ -112,7 +113,7 @@ export function EnzymeDetail() {
       <RevealItem>
         <div className="flex flex-wrap items-center gap-3">
           <InstrumentButton href={DESIGN_PDB} accent="bio" download stream>
-            <DownloadSimple className="h-4 w-4" /> Designed structure (enzyme-003) .bcif
+            <DownloadSimple className="h-4 w-4" /> Reference scaffold · CALB / PDB 1TCA (.bcif)
           </InstrumentButton>
           <InSilicoBadge />
         </div>

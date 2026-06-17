@@ -23,7 +23,7 @@ Built for the Cox Enterprises **"Play With Purpose"** Sustainability Hackathon, 
   [![Live](https://img.shields.io/badge/demo-live-3fb950.svg)](<vercel url>)
 -->
 
-> Everything REWEAR-FUSED produces is an **in-silico design with benchmark-referenced metrics**, not a wet-lab-validated material or enzyme. Every number traces to a real pipeline output or a verified citation. No synthetic data, no fictional persona. The honesty is on a [`/judges`](frontend/src/app/judges/page.tsx) page that tiers exactly what is real.
+> Everything REWEAR-FUSED produces is an **in-silico design with benchmark-referenced metrics**, not a wet-lab-validated material or enzyme. Every number is a live pipeline output (Engine C), a verified citation, or a clearly-labeled in-silico design value (Engines A/B). No synthetic data, no fictional persona. The honesty is on a [`/judges`](frontend/src/app/judges/page.tsx) page that tiers exactly what is real.
 
 ## The problem
 
@@ -46,7 +46,7 @@ Elastane is in about **80%** of all clothing, and as little as **1%** of it make
 ## What it does
 
 - **Engine A, Cleavable Elastane Design.** Constraint-guided virtual screening of polyurethane-urea chemical space. Aliphatic isocyanates only (so nothing carcinogenic comes off near a baby), the cleavable bond in the amorphous soft segment (so the stretch survives), 25 to 35 percent hard segment. It emits the carbamate microenvironment as the enzyme's substrate target.
-- **Engine B, Carbamate Hydrolase (LigandMPNN redesign).** The matched enzyme, engineered to cleave the exact bond in Engine A's fiber, with a near-neutral Ser-His-Asp triad so it does not damage companion cotton. What we delivered are three LigandMPNN redesigns of serine-hydrolase scaffolds (IsPETase, FAST-PETase, CalB), FoldSeek TM about 0.8 to template, with real PLACER preorganization on the Lauko thresholds. The de-novo fold with no prior art (TM below 0.5) was the swing we deferred to a longer GPU run. Anchored on, not copied from, the published UMG-SP2 urethanase transition-state geometry.
+- **Engine B, Carbamate Hydrolase (LigandMPNN redesign).** The matched enzyme, designed to cleave the exact bond in Engine A's fiber, with a near-neutral Ser-His-Asp triad so it does not damage companion cotton. Engine B specifies three LigandMPNN redesigns of real serine-hydrolase scaffolds (IsPETase, FAST-PETase, CalB), targeting FoldSeek TM about 0.8 to template and the Lauko PLACER thresholds; the structure shown and downloadable is the CALB / PDB 1TCA reference scaffold the lead design is built on. The redesign and the de-novo fold (no prior art, TM below 0.5) are the GPU compute we scoped and deferred. Anchored on, not copied from, the published UMG-SP2 urethanase transition-state geometry.
 - **Engine C, Digital Recyclability Passport.** A live compliance classifier that routes each garment **clear / lab-test / divert** against real US and EU regulation (CPSIA, California PFAS law, REACH, OEKO-TEX, EU ESPR) and emits a scannable GS1 Digital Link / EU Digital Product Passport. The part Carter's could deploy in Year 1.
 
 ## Architecture

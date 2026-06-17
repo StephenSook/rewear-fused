@@ -22,16 +22,16 @@ export default function EnzymePage() {
 
       <Reveal>
         <header className="mt-6 mb-8">
-          <MonoLabel>Engine B · de-novo target, redesign delivered · the grand-prize swing</MonoLabel>
+          <MonoLabel>Engine B · de-novo target, redesign fallback · the grand-prize swing</MonoLabel>
           <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">
             A Designed Carbamate Hydrolase
           </h1>
           <p className="mt-4 max-w-2xl text-fg-muted">
             Our swing is a de-novo carbamate hydrolase with no prior art; that GPU
-            run is deferred. What we engineered and validated in-silico is the
-            LigandMPNN-redesign fallback: a known serine-hydrolase scaffold with its
-            Ser-His-Asp triad repositioned for carbamate hydrolysis at near-neutral
-            pH. Real designs, honestly a redesign, not a de-novo fold.
+            run is deferred. What we designed in-silico is the LigandMPNN-redesign
+            fallback: a known serine-hydrolase scaffold with its Ser-His-Asp triad
+            repositioned for carbamate hydrolysis at near-neutral pH. An in-silico
+            design, honestly a redesign, not a de-novo fold.
           </p>
         </header>
       </Reveal>
@@ -42,8 +42,8 @@ export default function EnzymePage() {
           <p className="mt-3 font-mono text-[0.65rem] text-fg-muted">
             The CALB / PDB 1TCA serine-hydrolase scaffold our lead design
             (enzyme-003) is a LigandMPNN redesign of; its Ser-His-Asp catalytic triad
-            (Ser105 / His224 / Asp187) is highlighted in green. The designed
-            coordinates are downloadable in the readout. Drag to rotate.
+            (Ser105 / His224 / Asp187) is highlighted in green. This reference
+            scaffold is downloadable in the readout. Drag to rotate.
           </p>
         </Reveal>
 

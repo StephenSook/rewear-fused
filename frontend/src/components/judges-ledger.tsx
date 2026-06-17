@@ -64,7 +64,7 @@ const ITEMS: Item[] = [
     tier: "IN-SILICO",
     trl: "TRL 2",
     detail:
-      "The de-novo target (a no-prior-art carbamate hydrolase) needs a GPU run we deferred; the LigandMPNN-redesign fallback delivered three engineered hydrolases (redesigns of IsPETase / FAST-PETase / CalB scaffolds, TM ~0.8 to template) with REAL PLACER preorganization metrics on the Lauko thresholds. The viewer renders the CALB / 1TCA scaffold the lead design (enzyme-003) is built on; the designed coordinates are downloadable. In-silico, not an expressed protein.",
+      "The de-novo target (a no-prior-art carbamate hydrolase) needs a GPU run we deferred; the design fallback is three LigandMPNN redesigns of real serine-hydrolase scaffolds (IsPETase / FAST-PETase / CalB, TM ~0.8 to template) with in-silico PLACER preorganization targets on the Lauko thresholds. The viewer renders, and offers for download, the CALB / 1TCA reference scaffold the lead design is built on. In-silico design, not an expressed protein.",
   },
   {
     name: "Wet-lab validation",
@@ -119,8 +119,8 @@ export function JudgesLedger() {
         <BeveledBox accent="bio" className="p-6">
           <MonoLabel>The honesty moat</MonoLabel>
           <p className="mt-3 text-sm">
-            Every number on this site traces to a real pipeline output, a verified
-            DOI, or a clearly-labeled in-silico placeholder. No fabricated citations.
+            Every number on this site is a live pipeline output (Engine C), a verified
+            DOI, or a clearly-labeled in-silico design value (Engines A/B). No fabricated citations.
             No synthetic data in the judged path. No fictional persona. Engine C runs
             live on real CPSC data and is SHA-256 signed; Engine A/B are in-silico
             designs whose stand-in metrics are labeled as such until the pipelines run.
